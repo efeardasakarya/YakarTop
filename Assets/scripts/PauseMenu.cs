@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System.Collections.Generic; // Bu satýrý ekleyin
+
+
 
 public class PauseMenu : MonoBehaviour
 {
@@ -32,6 +35,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("Escape basýldý!");
             if (optionsMenu.activeSelf)
             {
                 CloseOptions();
@@ -41,7 +45,38 @@ public class PauseMenu : MonoBehaviour
                 TogglePause();
             }
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Fareyi UI üzerinde bir elemana týklayýp týklamadýðýný kontrol et
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("Fare UI'ye týkladý!");
+            }
+            else
+            {
+                Debug.Log("Fare UI dýþýnda bir yere týkladý!");
+            }
+
+            // Raycast kontrolü yaparak UI elementine týklanýp týklanmadýðýný kontrol et
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            pointerData.position = Input.mousePosition;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            if (results.Count > 0)
+            {
+                // Eðer UI elementlerine týklandýysa, hangi öðeye týklandýðýný logla
+                Debug.Log(" UI'ye týkladýn! Týklanan UI: " + results[0].gameObject.name);
+            }
+            else
+            {
+                Debug.Log(" UI algýlanmadý! UI dýþýnda bir yere týkladýn.");
+            }
+        }
     }
+
 
     public void TogglePause()
     {
@@ -58,9 +93,11 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1.0f;
         gameIsPaused = false;
 
-        // EventSystem'i güncelle
-        if (eventSystem != null)
-            eventSystem.UpdateModules();
+        // Karakter hareketlerini aktif et
+        Object.FindFirstObjectByType<RedThrowerController>().EnableControls(true);  // Hareketi aktif et
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void Pause()
@@ -70,15 +107,17 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         gameIsPaused = true;
 
-        // EventSystem'i güncelle
-        if (eventSystem != null)
-            eventSystem.UpdateModules();
+        // Karakter hareketlerini durdur
+        Object.FindFirstObjectByType<RedThrowerController>().EnableControls(false);  // Hareketi durdur
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void LoadScene(string sceneName)
     {
         Time.timeScale = 1.0f; // Yeni sahne yüklenmeden önce zamaný düzelt
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void ShowOptions()

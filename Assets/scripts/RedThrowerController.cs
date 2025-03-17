@@ -33,6 +33,9 @@ public class RedThrowerController : MonoBehaviour
 
     void Update()
     {
+        // Eðer oyun duraklatýldýysa, karakter hareket etmeyecek.
+        if (PauseMenu.gameIsPaused) return;  // Pause menüsü aktifse, hareket etme.
+
         Move();
         RotateCamera();
 
@@ -47,9 +50,8 @@ public class RedThrowerController : MonoBehaviour
                 ThrowBall();
             }
         }
-
-        
     }
+
 
     void Move()
     {
@@ -134,4 +136,10 @@ public class RedThrowerController : MonoBehaviour
         Vector3 spawnPosition = transform.position - transform.forward * 2f; 
         Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
     }
+
+    public void EnableControls(bool state)
+    {
+        this.enabled = state;
+    }
+
 }

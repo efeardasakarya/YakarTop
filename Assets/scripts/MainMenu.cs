@@ -1,11 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+
 
 public class MainMenu : MonoBehaviour
 {
     public AudioSource Theme;
+
+    void Start()
+    {
+        // Müzik çalmýyorsa baþlat
+        if (Theme != null && !Theme.isPlaying)
+        {
+            Theme.Play();
+        }
+    }
 
     public void LoadGame()
     {
@@ -16,6 +25,7 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
     public void SetFullscreen(bool isFull)
     {
         Screen.fullScreen = isFull;
