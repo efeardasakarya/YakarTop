@@ -9,10 +9,12 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        
         // Müzik çalmýyorsa baþlat
         if (Theme != null && !Theme.isPlaying)
         {
             Theme.Play();
+            Debug.Log("Müzik çalmaya çalýþýyor...");
         }
     }
 
