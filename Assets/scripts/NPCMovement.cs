@@ -13,7 +13,7 @@ public class NPCMovement : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
-        SetRandomDirection();
+        //SetRandomDirection();
     }
 
     void Update()
@@ -21,7 +21,7 @@ public class NPCMovement : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0 || IsOutOfBounds())
         {
-            SetRandomDirection();
+            //SetRandomDirection();
         }
 
         Move();
@@ -29,14 +29,17 @@ public class NPCMovement : MonoBehaviour
 
     void SetRandomDirection()
     {
+        /*
         float randomX = Random.Range(-movementRange.x, movementRange.x);
         float randomZ = Random.Range(-movementRange.y, movementRange.y);
         targetDirection = new Vector3(randomX, 0, randomZ).normalized;
         timer = changeDirectionTime;
+        */
     }
 
     void Move()
     {
+        /*
         Vector3 newPosition = transform.position + targetDirection * moveSpeed * Time.deltaTime;
         if (IsWithinBounds(newPosition))
         {
@@ -46,6 +49,7 @@ public class NPCMovement : MonoBehaviour
         {
             SetRandomDirection();
         }
+        */
     }
 
     bool IsWithinBounds(Vector3 position)
