@@ -19,6 +19,7 @@ public class BallController : MonoBehaviour
         if(other.CompareTag("Wall") || other.CompareTag("Ground") || other.CompareTag("Enemy") )
         { 
             Destroy(gameObject);
+            
         }
     }
 

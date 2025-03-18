@@ -7,6 +7,7 @@ public class RedThrowerController : MonoBehaviour
     public float moveSpeed = 5f;
     public Transform cameraTransform;
     public GameObject ballPrefab;
+    public GameObject Drogba;
     public Transform throwPoint;
     public float throwForce = 10f;
     public float holdDistance = 1.5f;
@@ -27,6 +28,7 @@ public class RedThrowerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Invoke("spawnNewBall" , 3f);
         Invoke("canHoldCoolDown" , 2f);
+        Invoke("spawnEnemy", 3f);
         
         
     }
@@ -133,13 +135,24 @@ public class RedThrowerController : MonoBehaviour
     private void spawnNewBall()
     {
         
-        Vector3 spawnPosition = transform.position - transform.forward * 2f; 
+        Vector3 spawnPosition = transform.position - transform.forward * 2f;
         Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
+
+        
     }
 
     public void EnableControls(bool state)
     {
         this.enabled = state;
+    }
+
+    private void spawnEnemy()
+    {
+        Instantiate(Drogba, new Vector3(101.6f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
+
+        Instantiate(Drogba, new Vector3(105.6f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
+
+        Instantiate(Drogba, new Vector3(110.26f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
     }
 
 }

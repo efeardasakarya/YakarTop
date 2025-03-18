@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6268178364083713388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6319737641948687403}
+  - component: {fileID: 6385971210005322833}
+  - component: {fileID: 6359106277374824224}
+  m_Layer: 0
+  m_Name: DodgeGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6319737641948687403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268178364083713388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 103.16, y: 175.42, z: 142.79}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6385971210005322833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268178364083713388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ef14392cf245e4388b709f08ed4090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redCharacter: {fileID: 2649418903671239371, guid: 958bf7a7975d5f8438c2141ab005388a, type: 3}
+  blueCharacter: {fileID: 0}
+  Drogba: {fileID: 8049534488121744717, guid: 7e196594191a1e9448fd8e1819c94d9d, type: 3}
+  Alex: {fileID: 435926718977822113, guid: 75784ef4fec936a45a734a8aef0bdb3c, type: 3}
+  Quaresma: {fileID: 6310295333696708250, guid: 903469e72135df9408adfed01e201270, type: 3}
+  redCamera: {fileID: 0}
+  blueCamera: {fileID: 0}
+--- !u!65 &6359106277374824224
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268178364083713388}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 72.572784, y: 5.571213, z: 19.608902}
+  m_Center: {x: 29.642532, y: 0.32822418, z: 0.5959854}
