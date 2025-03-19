@@ -1,4 +1,3 @@
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class GameManeger : MonoBehaviour
@@ -10,32 +9,29 @@ public class GameManeger : MonoBehaviour
     public GameObject Alex;
     public GameObject Quaresma;
 
-
-
     public Camera redCamera;
     public Camera blueCamera;
 
     private bool IsGameStart;
-
     private bool isRedActive = true;
 
-    private int DrogbaCounter=0;
+    private int DrogbaCounter = 0;
+    private int AlexCounter = 0;
+    private int QuaresmaCounter = 0;
 
-    private int AlexCounter=0 ;
-
-    private int QuaresmaCounter=0;
-
-    private string ActualEnemy="Drogba";
+    private string ActualEnemy = "Drogba";
 
     void Start()
     {
-        
         Invoke("StartGame", 3f);
-        Debug.Log("OyunBaþladý!");
+        Debug.Log("Oyun Baþladý!");
 
         DrogbaCounter = 0;
         AlexCounter = 0;
         QuaresmaCounter = 0;
+
+        // Baþlangýçta Drogba'larý spawn ediyoruz
+        DrogbaSpawn();
     }
 
     void Update()
@@ -48,7 +44,20 @@ public class GameManeger : MonoBehaviour
                 SetActiveCharacter(isRedActive);
             }
         }
-        
+        switch(ActualEnemy)
+        {
+            case "Drogba":
+                Debug.Log(DrogbaCounter);
+                break;
+
+            case "Alex":
+                Debug.Log(AlexCounter);
+                break;
+
+            case "Quaresma":
+                Debug.Log(QuaresmaCounter);
+                break;
+        }
         
     }
 
@@ -74,94 +83,97 @@ public class GameManeger : MonoBehaviour
             if (ActualEnemy == "Drogba")
             {
                 DrogbaCounter++;
-                Debug.Log(DrogbaCounter);
+                Debug.Log("Drogba Enter: " + DrogbaCounter);
             }
-
-            if (ActualEnemy == "Alex")
+            else if (ActualEnemy == "Alex")
             {
                 AlexCounter++;
+                Debug.Log("Alex Enter: " + AlexCounter);
             }
-
-            if (ActualEnemy == "Quaresma")
+            else if (ActualEnemy == "Quaresma")
             {
                 QuaresmaCounter++;
+                Debug.Log("Quaresma Enter: " + QuaresmaCounter);
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            if (ActualEnemy == "Drogba")
+            {
+                DrogbaCounter--;
+                Debug.Log("Drogba Exit: " + DrogbaCounter);
+
+                if (DrogbaCounter <= 0)
+                {
+                    Invoke("AlexSpawn", 3f);
+                }
+            }
+            else if (ActualEnemy == "Alex")
+            {
+                AlexCounter--;
+                Debug.Log("Alex Exit: " + AlexCounter);
+
+                if (AlexCounter <= 0)
+                {
+                    Invoke("QuaresmaSpawn", 3f);
+                }
+            }
+            else if (ActualEnemy == "Quaresma")
+            {
+                QuaresmaCounter--;
+                Debug.Log("Quaresma Exit: " + QuaresmaCounter);
+
+                if (QuaresmaCounter <= 0)
+                {
+                    Debug.Log("Tebrikler kazandýnýz");
+                }
+            }
+
+
 
         }
 
     }
 
-    private void OnTriggerExit(Collider other)  
+    private void DrogbaSpawn()
     {
+        ActualEnemy = "Drogba";
 
-
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("AAAAAAHHHHHHHHHHHH");
-            if (ActualEnemy == "Drogba")
-            {
-                DrogbaCounter --;
-                Debug.Log(DrogbaCounter);
-
-                if (DrogbaCounter == 0)
-                {
-                    Debug.Log("DrogbaÖldü");
-                    Invoke("AlexSpawn", 3f);
-
-                }
-            }
-
-
-
-
-            if (ActualEnemy == "Alex")
-            {
-                AlexCounter -= 1;
-                if (AlexCounter == 0)
-                {
-                    Invoke("QuaresmaSpawn", 3f);
-
-                }
-            }
-
-            if (ActualEnemy == "Quaresma")
-            {
-                QuaresmaCounter -= 1;
-                if (QuaresmaCounter == 0)
-                {
-                    ActualEnemy = "Null";
-
-                    Debug.Log("Tebrikler");
-
-                }
-            }
-        }
-        
+        SpawnEnemy(Drogba, ref DrogbaCounter);
     }
 
     private void AlexSpawn()
     {
-
         ActualEnemy = "Alex";
 
-        Instantiate(Alex, new Vector3(101.6f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
-
-        Instantiate(Alex, new Vector3(105.6f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
-
-        Instantiate(Alex, new Vector3(110.26f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
-
+        SpawnEnemy(Alex, ref AlexCounter);
     }
 
     private void QuaresmaSpawn()
     {
         ActualEnemy = "Quaresma";
 
-        Instantiate(Quaresma, new Vector3(101.6f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
-
-        Instantiate(Quaresma, new Vector3(105.6f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
-
-        Instantiate(Quaresma, new Vector3(110.26f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
+        SpawnEnemy(Quaresma, ref QuaresmaCounter);
     }
 
+    private void SpawnEnemy(GameObject enemyPrefab, ref int counter)
+    {
+        Vector3[] positions = new Vector3[]
+        {
+            new Vector3(101.6f, 174.3f, 142.9f),
+            new Vector3(105.6f, 174.3f, 142.9f),
+            new Vector3(110.26f, 174.3f, 142.9f)
+        };
 
+        counter = 0; // Spawn'dan önce sýfýrla, sonra OnTriggerEnter ile artar
+
+        foreach (Vector3 pos in positions)
+        {
+            Instantiate(enemyPrefab, pos, Quaternion.Euler(0, 270, 0));
+        }
+    }
 }

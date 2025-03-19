@@ -126,7 +126,6 @@ MonoBehaviour:
   moveSpeed: 3
   changeDirectionTime: 2
   areaSize: {x: 7, y: 8}
-  DodgeGameManager: {fileID: 6268178364083713388, guid: 4f0c83134e880e94699e68d2d50582b5, type: 3}
 --- !u!65 &8528934273818633835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -171,7 +170,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0

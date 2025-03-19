@@ -17223,6 +17223,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6359106277374824224, guid: 4f0c83134e880e94699e68d2d50582b5, type: 3}
+      propertyPath: m_Size.x
+      value: 18.945724
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359106277374824224, guid: 4f0c83134e880e94699e68d2d50582b5, type: 3}
+      propertyPath: m_Size.z
+      value: 8.104874
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359106277374824224, guid: 4f0c83134e880e94699e68d2d50582b5, type: 3}
+      propertyPath: m_Center.x
+      value: 2.8290024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359106277374824224, guid: 4f0c83134e880e94699e68d2d50582b5, type: 3}
+      propertyPath: m_Center.z
+      value: 0.033699036
+      objectReference: {fileID: 0}
     - target: {fileID: 6385971210005322833, guid: 4f0c83134e880e94699e68d2d50582b5, type: 3}
       propertyPath: redCamera
       value: 

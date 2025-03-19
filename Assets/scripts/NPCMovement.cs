@@ -6,7 +6,7 @@ public class NPCMovement : MonoBehaviour
     public float changeDirectionTime = 2f;
     public Vector2 areaSize = new Vector2(5f, 5f); // Manuel olarak belirleyeceðin alan
 
-    public GameObject DodgeGameManager;
+
 
     private bool isDead;
 
@@ -63,7 +63,7 @@ public class NPCMovement : MonoBehaviour
         if (other.CompareTag("Ball"))
         {
             transform.position = new Vector3(0, 0, 0);
-            Destroy(gameObject);
+            
         }
     }
 

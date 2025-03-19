@@ -148,11 +148,7 @@ public class RedThrowerController : MonoBehaviour
 
     private void spawnEnemy()
     {
-        Instantiate(Drogba, new Vector3(101.6f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
-
-        Instantiate(Drogba, new Vector3(105.6f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
-
-        Instantiate(Drogba, new Vector3(110.26f, 174.3f, 142.9f), Quaternion.Euler(0, 270, 0));
+        
     }
 
 }
