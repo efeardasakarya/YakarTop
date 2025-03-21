@@ -35,7 +35,6 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Escape basýldý!");
             if (optionsMenu.activeSelf)
             {
                 CloseOptions();
@@ -43,36 +42,6 @@ public class PauseMenu : MonoBehaviour
             else
             {
                 TogglePause();
-            }
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            // Fareyi UI üzerinde bir elemana týklayýp týklamadýðýný kontrol et
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                Debug.Log("Fare UI'ye týkladý!");
-            }
-            else
-            {
-                Debug.Log("Fare UI dýþýnda bir yere týkladý!");
-            }
-
-            // Raycast kontrolü yaparak UI elementine týklanýp týklanmadýðýný kontrol et
-            PointerEventData pointerData = new PointerEventData(EventSystem.current);
-            pointerData.position = Input.mousePosition;
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            if (results.Count > 0)
-            {
-                // Eðer UI elementlerine týklandýysa, hangi öðeye týklandýðýný logla
-                Debug.Log(" UI'ye týkladýn! Týklanan UI: " + results[0].gameObject.name);
-            }
-            else
-            {
-                Debug.Log(" UI algýlanmadý! UI dýþýnda bir yere týkladýn.");
             }
         }
     }

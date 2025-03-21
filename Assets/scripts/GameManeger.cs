@@ -47,15 +47,15 @@ public class GameManeger : MonoBehaviour
         switch(ActualEnemy)
         {
             case "Drogba":
-                Debug.Log(DrogbaCounter);
+             
                 break;
 
             case "Alex":
-                Debug.Log(AlexCounter);
+
                 break;
 
             case "Quaresma":
-                Debug.Log(QuaresmaCounter);
+
                 break;
         }
         
@@ -83,17 +83,17 @@ public class GameManeger : MonoBehaviour
             if (ActualEnemy == "Drogba")
             {
                 DrogbaCounter++;
-                Debug.Log("Drogba Enter: " + DrogbaCounter);
+                Debug.Log("Drogba Enter:" );
             }
             else if (ActualEnemy == "Alex")
             {
                 AlexCounter++;
-                Debug.Log("Alex Enter: " + AlexCounter);
+                Debug.Log("Alex Enter:");
             }
             else if (ActualEnemy == "Quaresma")
             {
                 QuaresmaCounter++;
-                Debug.Log("Quaresma Enter: " + QuaresmaCounter);
+                Debug.Log("Quaresma Enter:");
             }
         }
     }
@@ -105,7 +105,7 @@ public class GameManeger : MonoBehaviour
             if (ActualEnemy == "Drogba")
             {
                 DrogbaCounter--;
-                Debug.Log("Drogba Exit: " + DrogbaCounter);
+                Debug.Log("Drogba Exit: ");
 
                 if (DrogbaCounter <= 0)
                 {
@@ -115,7 +115,7 @@ public class GameManeger : MonoBehaviour
             else if (ActualEnemy == "Alex")
             {
                 AlexCounter--;
-                Debug.Log("Alex Exit: " + AlexCounter);
+                Debug.Log("Alex Exit: ");
 
                 if (AlexCounter <= 0)
                 {
@@ -125,7 +125,7 @@ public class GameManeger : MonoBehaviour
             else if (ActualEnemy == "Quaresma")
             {
                 QuaresmaCounter--;
-                Debug.Log("Quaresma Exit: " + QuaresmaCounter);
+                Debug.Log("Quaresma Exit: ");
 
                 if (QuaresmaCounter <= 0)
                 {

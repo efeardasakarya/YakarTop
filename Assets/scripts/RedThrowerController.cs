@@ -98,7 +98,6 @@ public class RedThrowerController : MonoBehaviour
             heldBall.GetComponent<Rigidbody>().AddForce(cameraTransform.forward * throwForce, ForceMode.Impulse);
             canHold = false;
             heldBall = null;
-            Debug.Log("Fýrlat");
             Invoke("canHoldCoolDown", 2f);
             Invoke("spawnNewBall", 3f);
         }
@@ -109,7 +108,6 @@ public class RedThrowerController : MonoBehaviour
         
         if (other.CompareTag("Ball"))
         {
-            Debug.Log("girdim");
             nearbyBall = other.gameObject;
             if (heldBall == null && canHold )
             {

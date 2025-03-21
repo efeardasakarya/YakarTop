@@ -14,7 +14,6 @@ public class MainMenu : MonoBehaviour
         if (Theme != null && !Theme.isPlaying)
         {
             Theme.Play();
-            Debug.Log("Müzik çalmaya çalýþýyor...");
         }
     }
 
