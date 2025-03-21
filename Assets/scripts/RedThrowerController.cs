@@ -22,6 +22,8 @@ public class RedThrowerController : MonoBehaviour
     private bool canHold=false;
     public bool IsRedActive;
 
+    private int ballCounter = 0;
+    public int ballLimit = 10;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,6 +31,7 @@ public class RedThrowerController : MonoBehaviour
         Invoke("spawnNewBall" , 3f);
         Invoke("canHoldCoolDown" , 2f);
         Invoke("spawnEnemy", 3f);
+        
         
         
     }
@@ -43,7 +46,7 @@ public class RedThrowerController : MonoBehaviour
 
         if (heldBall != null)
         {
-            Vector3 holdPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
+            Vector3 holdPosition = throwPoint.position;
             heldBall.transform.position = holdPosition;
             heldBall.transform.rotation = cameraTransform.rotation;
 
@@ -91,17 +94,42 @@ public class RedThrowerController : MonoBehaviour
     }
 
     void ThrowBall()
+{
+    if (IsRedActive)
     {
-        if (IsRedActive)
+        
+        heldBall.GetComponent<Rigidbody>().isKinematic = false;
+
+        
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+        RaycastHit hit;
+
+        Vector3 targetPoint;
+
+        
+        if (Physics.Raycast(ray, out hit, 40f))
         {
-            heldBall.GetComponent<Rigidbody>().isKinematic = false;
-            heldBall.GetComponent<Rigidbody>().AddForce(cameraTransform.forward * throwForce, ForceMode.Impulse);
-            canHold = false;
-            heldBall = null;
-            Invoke("canHoldCoolDown", 2f);
-            Invoke("spawnNewBall", 3f);
+            targetPoint = hit.point;
         }
+        else // Çarpmazsa ileri bir uzak nokta hedef olarak alýnýr
+        {
+            targetPoint = cameraTransform.position + cameraTransform.forward * 40f;
+        }
+
+        // Topun hedefe doðru yönünü alýyoruz
+        Vector3 throwDirection = (targetPoint - heldBall.transform.position).normalized;
+
+        // Fýrlatma kuvvetini o yöne uyguluyoruz
+        heldBall.GetComponent<Rigidbody>().AddForce(throwDirection * throwForce, ForceMode.Impulse);
+
+        // Topla ilgili kontrol deðiþkenleri güncelleniyor
+        canHold = false;
+        heldBall = null;
+        Invoke("canHoldCoolDown", 2f);
+        Invoke("spawnNewBall", 3f);
     }
+}
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -132,9 +160,16 @@ public class RedThrowerController : MonoBehaviour
 
     private void spawnNewBall()
     {
-        
-        Vector3 spawnPosition = transform.position - transform.forward * 2f;
-        Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
+        if (ballCounter == ballLimit)
+        {
+            Debug.Log("Baþaramadýn");
+        }
+        else if (ballCounter < ballLimit)
+        {
+            Vector3 spawnPosition = transform.position - transform.forward * 2f;
+            Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
+            ballCounter++;
+        }
 
         
     }
@@ -148,5 +183,7 @@ public class RedThrowerController : MonoBehaviour
     {
         
     }
+
+    
 
 }

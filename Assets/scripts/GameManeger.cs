@@ -19,6 +19,10 @@ public class GameManeger : MonoBehaviour
     private int AlexCounter = 0;
     private int QuaresmaCounter = 0;
 
+    public int timeLimit = 40;
+
+    public int actualTime = 0;
+
     private string ActualEnemy = "Drogba";
 
     void Start()
@@ -32,6 +36,9 @@ public class GameManeger : MonoBehaviour
 
         // Baþlangýçta Drogba'larý spawn ediyoruz
         DrogbaSpawn();
+
+        Invoke("timeControl", timeLimit+3);
+        Invoke("setTimer", 4);
     }
 
     void Update()
@@ -175,5 +182,24 @@ public class GameManeger : MonoBehaviour
         {
             Instantiate(enemyPrefab, pos, Quaternion.Euler(0, 270, 0));
         }
+
+
     }
+
+    private void timeControl()
+    {
+        if (!(DrogbaCounter == 0 && AlexCounter == 0 && QuaresmaCounter == 0))
+        {
+            Debug.Log("Baþarýsýz oldun");
+
+        }
+    }
+
+    private void setTimer()
+    {
+        actualTime++;
+        Invoke("setTimer", 1f);
+        Debug.Log(actualTime);
+    }
+
 }
