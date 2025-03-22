@@ -37,7 +37,7 @@ public class GameManeger : MonoBehaviour
         // Baþlangýçta Drogba'larý spawn ediyoruz
         DrogbaSpawn();
 
-        Invoke("timeControl", timeLimit+3);
+        Invoke("timeControl", timeLimit + 3);
         Invoke("setTimer", 4);
     }
 
@@ -51,10 +51,10 @@ public class GameManeger : MonoBehaviour
                 SetActiveCharacter(isRedActive);
             }
         }
-        switch(ActualEnemy)
+        switch (ActualEnemy)
         {
             case "Drogba":
-             
+
                 break;
 
             case "Alex":
@@ -65,7 +65,7 @@ public class GameManeger : MonoBehaviour
 
                 break;
         }
-        
+
     }
 
     void SetActiveCharacter(bool isRed)
@@ -90,7 +90,7 @@ public class GameManeger : MonoBehaviour
             if (ActualEnemy == "Drogba")
             {
                 DrogbaCounter++;
-                Debug.Log("Drogba Enter:" );
+                Debug.Log("Drogba Enter:");
             }
             else if (ActualEnemy == "Alex")
             {

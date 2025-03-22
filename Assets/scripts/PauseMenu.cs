@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using System.Collections.Generic; // Bu satýrý ekleyin
-
-
+using TMPro; // TextMesh Pro için gerekli namespace
+using System.Collections.Generic;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -14,6 +13,13 @@ public class PauseMenu : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject panel; // Arka plan karartma paneli
     public AudioSource theme;
+
+    // Gizlemek istediðiniz öðeler
+    public GameObject timerObject; // TextMesh Pro bileþenini içeren Timer
+    public GameObject imageParentObject; // Image bileþenlerini içeren parent GameObject
+
+    // Tüm oyun UI öðelerini saklamak için liste
+    public List<GameObject> gameUIElements = new List<GameObject>();
 
     private EventSystem eventSystem;
 
@@ -29,6 +35,10 @@ public class PauseMenu : MonoBehaviour
 
         // EventSystem'i al
         eventSystem = EventSystem.current;
+
+        // Oyun UI öðelerini listeye ekle
+        // Bu listeye, gizlenmesini istediðiniz tüm UI öðelerini manuel olarak ekleyebilirsiniz
+        gameUIElements.AddRange(GameObject.FindGameObjectsWithTag("GameUI"));
     }
 
     void Update()
@@ -45,7 +55,6 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-
 
     public void TogglePause()
     {
@@ -65,6 +74,13 @@ public class PauseMenu : MonoBehaviour
         // Karakter hareketlerini aktif et
         Object.FindFirstObjectByType<RedThrowerController>().EnableControls(true);  // Hareketi aktif et
 
+        // Diðer UI öðelerini tekrar göster
+        ToggleUIElements(true);
+
+        // Gizlenen öðeleri geri getirme
+        timerObject.SetActive(true);
+        imageParentObject.SetActive(true);
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -79,8 +95,24 @@ public class PauseMenu : MonoBehaviour
         // Karakter hareketlerini durdur
         Object.FindFirstObjectByType<RedThrowerController>().EnableControls(false);  // Hareketi durdur
 
+        // Diðer UI öðelerini gizle
+        ToggleUIElements(false);
+
+        // Gizlemek istediðiniz öðeleri gizle
+        timerObject.SetActive(false);
+        imageParentObject.SetActive(false);
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    // Diðer UI öðelerini gizlemek ve göstermek için yardýmcý fonksiyon
+    private void ToggleUIElements(bool show)
+    {
+        foreach (GameObject uiElement in gameUIElements)
+        {
+            uiElement.SetActive(show);
+        }
     }
 
     public void LoadScene(string sceneName)
