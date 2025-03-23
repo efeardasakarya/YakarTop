@@ -218,10 +218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040f505b03e274746bbc95011e62dcfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 2
   changeDirectionTime: 2
   areaSize: {x: 2, y: 6}
-  catchChance: 0.2
+  catchChance: 0.07
   extraLives: 0
   catchIndicator: {fileID: 2236737242005273501}
 --- !u!54 &2645540141904055388

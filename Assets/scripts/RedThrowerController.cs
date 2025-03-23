@@ -117,7 +117,7 @@ public class RedThrowerController : MonoBehaviour
             }
 
             canHold = false;                        // Ýleri atýldýðý esnada topun collidera girip ele gelmemesi için
-            Invoke("canHoldCoolDown", 2f);          // geçiçi olarak tutumayý kapat
+            Invoke("canHoldCoolDown", 0.5f);          // geçiçi olarak tutumayý kapat
 
 
             Vector3 throwDirection = (targetPoint - heldBall.transform.position).normalized;
@@ -138,7 +138,7 @@ public class RedThrowerController : MonoBehaviour
             ballCounter++;
 
             // 3 saniyw sonra yeni bir top spawn etme iþlemi
-            Invoke("spawnNewBall", 3f);
+            Invoke("spawnNewBall", 1.5f);
         }
     }
 

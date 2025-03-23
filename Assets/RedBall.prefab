@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed932be50b028d47bc77c13d2354ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redPlayer: {fileID: 2649418903671239371, guid: 958bf7a7975d5f8438c2141ab005388a, type: 3}
+  redThrower: {fileID: 2649418903671239371, guid: 958bf7a7975d5f8438c2141ab005388a, type: 3}
 --- !u!1001 &6110265093474966887
 PrefabInstance:
   m_ObjectHideFlags: 0

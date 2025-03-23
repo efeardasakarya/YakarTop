@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManeger : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class GameManeger : MonoBehaviour
             StartNewRound();
             
         }
-
+        
         if(isCountingDown)
         {
             HandleCountdown();  // Düzenli olarak geri sayýmý kontrol eder
@@ -73,8 +74,8 @@ public class GameManeger : MonoBehaviour
         if (redController.ballCounter == redController.ballLimit)
         {
             if (lastBallController)
-            { 
-            Invoke("lastBallControl", 3f);
+            {
+                Invoke("lastBallControl", 1.5f);
             lastBallController = false;
             }
         }
@@ -103,6 +104,7 @@ public class GameManeger : MonoBehaviour
 
     private void StartNewRound()
     {
+        CancelInvoke("lastBallControl");
         roundFinished = false;
         Time.timeScale = 1f; // Oyunu baþlat
         countdownTime = 40f;    
@@ -115,10 +117,31 @@ public class GameManeger : MonoBehaviour
 
         if (currentRoundScreen != null)
             currentRoundScreen.SetActive(false); // Tur ekranýný kapat
+        if (currentRoundScreen == WinScreen)
+        {
+            Time.timeScale = 1.0f;
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+            return;
+        }
 
-        if (currentRound == 1) DrogbaSpawn();
-        else if (currentRound == 2) AlexSpawn();
-        else if (currentRound == 3) QuaresmaSpawn();
+
+        if (currentRound == 1)
+        {
+            DrogbaSpawn();
+            redController.sliderSpeed = 150f;
+        }
+           
+        else if (currentRound == 2)
+        {
+            AlexSpawn();
+            redController.sliderSpeed = 100f;
+        }
+
+        else if (currentRound == 3)
+        {
+            QuaresmaSpawn();
+            redController.sliderSpeed = 70f; 
+        }
         else if(currentRound == 4)
         {
             currentRound = 1; // Eðer baþarýsýz olup R ye bastýysa 1 numaralý drogba ara sahnesine geri dön
@@ -256,7 +279,16 @@ public class GameManeger : MonoBehaviour
         AlexCounter = 0;
         QuaresmaCounter = 0;
         ActualEnemy = "Drogba";
-        currentRound = 4;       // Baþarýsýz ekranýný aç
+        if (currentRound == 5)
+        {
+            currentRound = 1; 
+        }
+        else
+        {
+            currentRound = 4;       // Baþarýsýz ekranýný aç
+        }
+
+
         countdownTime = 40f;
         Start();
 }

@@ -1,15 +1,12 @@
 using UnityEngine;
 
 public class BallController : MonoBehaviour
-{
-    
-    
-    
+
+{  
     void Start()
     {
-        
-    }
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -19,13 +16,9 @@ public class BallController : MonoBehaviour
     {
         if(other.CompareTag("Wall") || other.CompareTag("Ground") || other.CompareTag("Enemy") )
         {
-            
             Destroy(gameObject);
             
             
         }
     }
-
-  
-
 }

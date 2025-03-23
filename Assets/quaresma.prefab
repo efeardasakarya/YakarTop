@@ -221,7 +221,7 @@ MonoBehaviour:
   moveSpeed: 3
   changeDirectionTime: 2
   areaSize: {x: 2, y: 6}
-  catchChance: 0.2
+  catchChance: 0.1
   extraLives: 0
   catchIndicator: {fileID: 5542583035137709312}
 --- !u!54 &4854538526437809399

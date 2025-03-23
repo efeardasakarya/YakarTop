@@ -17,6 +17,8 @@ public class PauseMenu : MonoBehaviour
     // Gizlemek istediðiniz öðeler
     public GameObject timerObject; // TextMesh Pro bileþenini içeren Timer
     public GameObject imageParentObject; // Image bileþenlerini içeren parent GameObject
+    public GameObject SliderObject;
+    public GameObject CrosshairObject;
 
     // Tüm oyun UI öðelerini saklamak için liste
     public List<GameObject> gameUIElements = new List<GameObject>();
@@ -36,9 +38,7 @@ public class PauseMenu : MonoBehaviour
         // EventSystem'i al
         eventSystem = EventSystem.current;
 
-        // Oyun UI öðelerini listeye ekle
-        // Bu listeye, gizlenmesini istediðiniz tüm UI öðelerini manuel olarak ekleyebilirsiniz
-        gameUIElements.AddRange(GameObject.FindGameObjectsWithTag("GameUI"));
+
     }
 
     void Update()
@@ -80,6 +80,8 @@ public class PauseMenu : MonoBehaviour
         // Gizlenen öðeleri geri getirme
         timerObject.SetActive(true);
         imageParentObject.SetActive(true);
+        SliderObject.SetActive(true);
+        CrosshairObject.SetActive(true);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -101,6 +103,8 @@ public class PauseMenu : MonoBehaviour
         // Gizlemek istediðiniz öðeleri gizle
         timerObject.SetActive(false);
         imageParentObject.SetActive(false);
+        SliderObject.SetActive(false);
+        CrosshairObject.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

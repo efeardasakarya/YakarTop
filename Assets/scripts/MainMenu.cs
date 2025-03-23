@@ -9,17 +9,23 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        
-        // Müzik çalmýyorsa baþlat
+        Debug.Log("start calisti");
+        Time.timeScale = 1f;
+        Canvas myCanvas = FindObjectOfType<Canvas>();
+        if (myCanvas != null)
+        {
+            myCanvas.gameObject.SetActive(true);
+        }
         if (Theme != null && !Theme.isPlaying)
         {
+  
             Theme.Play();
         }
     }
 
     public void LoadGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
     }
 
     public void EndGame()
