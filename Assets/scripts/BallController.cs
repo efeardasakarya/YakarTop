@@ -4,6 +4,7 @@ public class BallController : MonoBehaviour
 {
     
     
+    
     void Start()
     {
         
@@ -17,8 +18,10 @@ public class BallController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Wall") || other.CompareTag("Ground") || other.CompareTag("Enemy") )
-        { 
+        {
+            
             Destroy(gameObject);
+            
             
         }
     }

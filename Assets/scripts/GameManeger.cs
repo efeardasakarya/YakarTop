@@ -43,12 +43,17 @@ public class GameManeger : MonoBehaviour
     private float countdownTime = 40f; // Tur baþýna 40 saniye geri sayým
     private bool isCountingDown = false; // Geri sayým aktif mi?
 
+    private RedThrowerController redController;
+
+    private bool lastBallController=true;
+
     void Start()
     {
         Time.timeScale = 0f;            // En baþta oyundaki her þey durur
         ShowRoundScreen(currentRound);  // Ýlk turda drogbalarýn ekranýný sahneye getirir.
-        
-        
+        redController = redCharacter.GetComponent<RedThrowerController>();
+
+
     }
 
     void Update()
@@ -63,6 +68,15 @@ public class GameManeger : MonoBehaviour
         if(isCountingDown)
         {
             HandleCountdown();  // Düzenli olarak geri sayýmý kontrol eder
+        }
+
+        if (redController.ballCounter == redController.ballLimit)
+        {
+            if (lastBallController)
+            { 
+            Invoke("lastBallControl", 3f);
+            lastBallController = false;
+            }
         }
         
     }
@@ -94,6 +108,7 @@ public class GameManeger : MonoBehaviour
         countdownTime = 40f;    
         isCountingDown = true;
         countdownText.gameObject.SetActive(true);   // Geri sayým UI'ýný etkinleþtirir
+        lastBallController = true;
 
         SetActiveCharacter(true);
         redCharacter.GetComponent<RedThrowerController>().RedStartNewRound(); // Top sayýsý gösteren UI'ý resetler
@@ -258,6 +273,16 @@ public class GameManeger : MonoBehaviour
             
             
             RestartGame(); // Yeni tur baþlat
+        }
+    }
+
+    private void lastBallControl()
+    {
+        if ( !(DrogbaCounter == 0 && AlexCounter == 0 && QuaresmaCounter == 0) )
+        {
+            isCountingDown = false;
+            countdownText.gameObject.SetActive(false);
+            RestartGame();
         }
     }
 

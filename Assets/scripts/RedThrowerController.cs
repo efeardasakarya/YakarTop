@@ -24,7 +24,7 @@ public class RedThrowerController : MonoBehaviour
     
     public bool IsRedActive;
 
-    private int ballCounter = 0;
+    public int ballCounter = 0;
     public int ballLimit = 5;
 
     public Image[] ballIcons; // UI'deki top simgeleri
@@ -124,8 +124,6 @@ public class RedThrowerController : MonoBehaviour
             {
                 ballIcons[ballCounter].gameObject.SetActive(false);
             }
-
-            
             heldBall = null;
             ballCounter++;
 
