@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManeger : MonoBehaviour
@@ -13,97 +15,134 @@ public class GameManeger : MonoBehaviour
     public Camera blueCamera;
 
     private bool IsGameStart;
-    private bool isRedActive = true;
+    
 
     private int DrogbaCounter = 0;
     private int AlexCounter = 0;
     private int QuaresmaCounter = 0;
 
-    public int timeLimit = 40;
+    
+    private string ActualEnemy = "Drogba";   // Ýlk Drogba spawnlanýr
 
-    public int actualTime = 0;
 
-    private string ActualEnemy = "Drogba";
+    public int currentRound = 1;     
+    public int maxRounds = 3;
+    private bool roundFinished = false;
+
+
+    public GameObject round1Screen; // Drogbalarýn geleceði geçiþ ekraný 
+    public GameObject round2Screen; // Alexlerin geleceði geçiþ ekraný
+    public GameObject round3Screen; // Quaresmalarýn geleceði geçiþ ekraný
+    public GameObject FailScreen; // Baþarýsýz olmasý durumunda çýkacak ekran
+    public GameObject WinScreen; // 3 roundu tamamlayýp oyunu kazanmasý durumunda çýkacak ekran
+
+    private GameObject currentRoundScreen;
+
+    public TextMeshProUGUI countdownText;
+
+    private float countdownTime = 40f; // Tur baþýna 40 saniye geri sayým
+    private bool isCountingDown = false; // Geri sayým aktif mi?
 
     void Start()
     {
-        Invoke("StartGame", 3f);
-        Debug.Log("Oyun Baþladý!");
-
-        DrogbaCounter = 0;
-        AlexCounter = 0;
-        QuaresmaCounter = 0;
-
-        // Baþlangýçta Drogba'larý spawn ediyoruz
-        DrogbaSpawn();
-
-        Invoke("timeControl", timeLimit + 3);
-        Invoke("setTimer", 4);
+        Time.timeScale = 0f;            // En baþta oyundaki her þey durur
+        ShowRoundScreen(currentRound);  // Ýlk turda drogbalarýn ekranýný sahneye getirir.
+        
+        
     }
 
     void Update()
     {
-        if (IsGameStart)
+        //  Eðer tur ekraný açýksa ve R'ye basýlýrsa yeni tur baþlat
+        if (roundFinished && Input.GetKeyDown(KeyCode.R))
         {
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                isRedActive = !isRedActive;
-                SetActiveCharacter(isRedActive);
-            }
-        }
-        switch (ActualEnemy)
-        {
-            case "Drogba":
-
-                break;
-
-            case "Alex":
-
-                break;
-
-            case "Quaresma":
-
-                break;
+            StartNewRound();
+            
         }
 
+        if(isCountingDown)
+        {
+            HandleCountdown();  // Düzenli olarak geri sayýmý kontrol eder
+        }
+        
     }
 
-    void SetActiveCharacter(bool isRed)
+    private void ShowRoundScreen(int round)
     {
-        redCharacter.GetComponent<RedThrowerController>().IsRedActive = isRed;
-        blueCharacter.GetComponent<BlueThrowerController>().IsBlueActive = !isRed;
+        roundFinished = true;
+        Time.timeScale = 0f; 
 
-        redCamera.gameObject.SetActive(isRed);
-        blueCamera.gameObject.SetActive(!isRed);
+        if (round == 1) currentRoundScreen = round1Screen;
+        else if (round == 2) currentRoundScreen = round2Screen;
+        else if (round == 3) currentRoundScreen = round3Screen;
+        else if (round == 4) currentRoundScreen = FailScreen;
+        else if (round == 5) currentRoundScreen = WinScreen;
+        
+
+        if (currentRoundScreen != null)
+        {
+            currentRoundScreen.SetActive(true);
+        }
+        redCharacter.GetComponent<RedThrowerController>().enabled = false;  // Ara sahneler esnasýnda karakterin
+                                                                            // hareketini engeller
     }
 
-    void StartGame()
+    private void StartNewRound()
     {
-        IsGameStart = true;
+        roundFinished = false;
+        Time.timeScale = 1f; // Oyunu baþlat
+        countdownTime = 40f;    
+        isCountingDown = true;
+        countdownText.gameObject.SetActive(true);   // Geri sayým UI'ýný etkinleþtirir
+
         SetActiveCharacter(true);
+        redCharacter.GetComponent<RedThrowerController>().RedStartNewRound(); // Top sayýsý gösteren UI'ý resetler
+
+        if (currentRoundScreen != null)
+            currentRoundScreen.SetActive(false); // Tur ekranýný kapat
+
+        if (currentRound == 1) DrogbaSpawn();
+        else if (currentRound == 2) AlexSpawn();
+        else if (currentRound == 3) QuaresmaSpawn();
+        else if(currentRound == 4)
+        {
+            currentRound = 1; // Eðer baþarýsýz olup R ye bastýysa 1 numaralý drogba ara sahnesine geri dön
+            Start();
+        }
+        else if (currentRound == 5)
+        {
+            //Oyunu bitirip bir daha R ye basarsa tekrar 1. savaþa döner
+            isCountingDown = false;
+            countdownText.gameObject.SetActive(false); 
+
+            
+            RestartGame(); // Yeni tur baþlat
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            if (ActualEnemy == "Drogba")
+            if(ActualEnemy == "Drogba")
             {
                 DrogbaCounter++;
-                Debug.Log("Drogba Enter:");
             }
-            else if (ActualEnemy == "Alex")
+
+            if (ActualEnemy == "Alex")
             {
                 AlexCounter++;
-                Debug.Log("Alex Enter:");
             }
-            else if (ActualEnemy == "Quaresma")
+
+            if (ActualEnemy == "Quaresma")
             {
                 QuaresmaCounter++;
-                Debug.Log("Quaresma Enter:");
             }
+
+
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -112,58 +151,51 @@ public class GameManeger : MonoBehaviour
             if (ActualEnemy == "Drogba")
             {
                 DrogbaCounter--;
-                Debug.Log("Drogba Exit: ");
-
-                if (DrogbaCounter <= 0)
+                if (DrogbaCounter == 0)
                 {
-                    Invoke("AlexSpawn", 3f);
+                    currentRound++; // Current Round'u 2 yaparak Alex ekranýný çýkart
+                    ShowRoundScreen(currentRound);
                 }
             }
             else if (ActualEnemy == "Alex")
             {
                 AlexCounter--;
-                Debug.Log("Alex Exit: ");
-
-                if (AlexCounter <= 0)
+                if (AlexCounter == 0)
                 {
-                    Invoke("QuaresmaSpawn", 3f);
+                    currentRound++; // Current Round'u 3 yaparak Quaresma ekranýný çýkart
+                    ShowRoundScreen(currentRound);
+                    
                 }
             }
             else if (ActualEnemy == "Quaresma")
             {
                 QuaresmaCounter--;
-                Debug.Log("Quaresma Exit: ");
-
-                if (QuaresmaCounter <= 0)
+                if (QuaresmaCounter == 0)
                 {
-                    Debug.Log("Tebrikler kazandýnýz");
+                    currentRound += 2; // Current Round'u 5 yaparak kazanma ekranýný çýkart
+                    ShowRoundScreen(currentRound);
+
+                     
                 }
             }
-
-
-
         }
-
     }
 
     private void DrogbaSpawn()
     {
         ActualEnemy = "Drogba";
-
         SpawnEnemy(Drogba, ref DrogbaCounter);
     }
 
     private void AlexSpawn()
     {
         ActualEnemy = "Alex";
-
         SpawnEnemy(Alex, ref AlexCounter);
     }
 
     private void QuaresmaSpawn()
     {
         ActualEnemy = "Quaresma";
-
         SpawnEnemy(Quaresma, ref QuaresmaCounter);
     }
 
@@ -176,30 +208,59 @@ public class GameManeger : MonoBehaviour
             new Vector3(110.26f, 174.3f, 142.9f)
         };
 
-        counter = 0; // Spawn'dan önce sýfýrla, sonra OnTriggerEnter ile artar
-
+        counter = 0;
         foreach (Vector3 pos in positions)
         {
             Instantiate(enemyPrefab, pos, Quaternion.Euler(0, 270, 0));
         }
-
-
     }
 
-    private void timeControl()
+    void SetActiveCharacter(bool isRed)
     {
-        if (!(DrogbaCounter == 0 && AlexCounter == 0 && QuaresmaCounter == 0))
-        {
-            Debug.Log("Baþarýsýz oldun");
+        redCharacter.GetComponent<RedThrowerController>().enabled = isRed;
+        redCharacter.GetComponent<RedThrowerController>().IsRedActive = isRed;
+        //blueCharacter.GetComponent<BlueThrowerController>().IsBlueActive = !isRed;
 
+        redCamera.gameObject.SetActive(isRed);
+        //blueCamera.gameObject.SetActive(!isRed);
+    }
+
+    private void RestartGame()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        // Her bir düþmaný (0,0,0)'a taþý ve yok et
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.transform.position = Vector3.zero; 
+            Destroy(enemy); 
+        }
+        redCharacter.GetComponent<RedThrowerController>().RedStartNewRound();
+        
+        DrogbaCounter = 0;
+        AlexCounter = 0;
+        QuaresmaCounter = 0;
+        ActualEnemy = "Drogba";
+        currentRound = 4;       // Baþarýsýz ekranýný aç
+        countdownTime = 40f;
+        Start();
+}
+
+    private void HandleCountdown()
+    {
+        countdownTime -= Time.deltaTime;
+        countdownText.text = Mathf.Ceil(countdownTime).ToString(); // Geri sayým deðerini ekranda göster
+
+        if (countdownTime <= 0)
+        {
+            isCountingDown = false; 
+            countdownText.gameObject.SetActive(false); 
+            
+            
+            RestartGame(); // Yeni tur baþlat
         }
     }
 
-    private void setTimer()
-    {
-        actualTime++;
-        Invoke("setTimer", 1f);
-        Debug.Log(actualTime);
-    }
+
 
 }

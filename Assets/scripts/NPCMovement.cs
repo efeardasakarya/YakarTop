@@ -115,7 +115,7 @@ public class NPCMovement : MonoBehaviour
         }
         else
         {
-            // extraLives--;
+            extraLives--;
         }
            
         // Burada NPC’nin vurulma durumunu iþleyebilirsin.
