@@ -3372,6 +3372,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c998ddfbacd94543a4d0564d4e4adfe, type: 3}
+--- !u!1 &377173880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 377173882}
+  - component: {fileID: 377173881}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &377173881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377173880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1540b6e424a74741a31bd530bd36364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &377173882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377173880}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 70.75288, y: 158.69032, z: 139.66063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &383879419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14844,6 +14888,9 @@ MonoBehaviour:
   FailScreen: {fileID: 1615937560}
   WinScreen: {fileID: 959193144}
   countdownText: {fileID: 1758822107}
+  Drogba: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
+  Alex: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
+  Quaresma: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
 --- !u!1001 &1658057848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19336,6 +19383,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 401541356475167912, guid: 1f017a0df6f04904b874277d8c229958, type: 3}
+      propertyPath: isAlive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 401541356475167912, guid: 1f017a0df6f04904b874277d8c229958, type: 3}
+      propertyPath: accuracySlider
+      value: 
+      objectReference: {fileID: 1051129227}
     - target: {fileID: 7822760186843605797, guid: 1f017a0df6f04904b874277d8c229958, type: 3}
       propertyPath: m_Name
       value: Runner
@@ -19703,3 +19758,4 @@ SceneRoots:
   - {fileID: 246900656}
   - {fileID: 1653762849}
   - {fileID: 2099912744}
+  - {fileID: 377173882}

@@ -2,12 +2,23 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 
-{  
+{
+    public GameObject player;
+    private RunnerController runnerController;
+
     void Start()
     {
-
+        if (player != null)
+        {
+            runnerController = player.GetComponent<RunnerController>();
+        }
+        else
+        {
+            Debug.LogWarning("Player GameObject not assigned in BallController.");
+        }
     }
-    // Update is called once per frame
+
+
     void Update()
     {
         
@@ -20,5 +31,21 @@ public class BallController : MonoBehaviour
             
             
         }
+
+        else if (other.CompareTag("Runner"))
+        {
+            Debug.Log("ya herro ya merro");
+
+            RunnerController rc = other.GetComponent<RunnerController>();
+            if (rc != null)
+            {
+                rc.isAlive = false;
+            }
+            else
+            {
+                Debug.LogWarning("RunnerController component not found on Runner object!");
+            }
+        }
+
     }
 }

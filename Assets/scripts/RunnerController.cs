@@ -27,6 +27,8 @@ public class RunnerController : MonoBehaviour
 
     public bool isAlive=true;
 
+    public bool CanSlowTime = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -50,7 +52,11 @@ public class RunnerController : MonoBehaviour
         // 3) Slow motion on '1' key
         if (!isSlow && Input.GetKeyDown(KeyCode.Alpha1))  // [ADDED]
         {
-            StartCoroutine(SlowTime());  // [ADDED]
+            if (CanSlowTime)
+            {
+                StartCoroutine(SlowTime());
+                CanSlowTime = false;
+            }
         }
     }
 
