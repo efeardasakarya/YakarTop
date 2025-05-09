@@ -1,0 +1,239 @@
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class RunnerGameManager : MonoBehaviour
+{
+    public GameObject RunnerCharacter;
+
+    /*
+    public GameObject Drogba;
+    public GameObject Alex;
+    public GameObject Quaresma;
+   
+
+    public Camera redCamera;
+    public Camera blueCamera;
+     */
+    private bool IsGameStart;
+    
+    private string ActualEnemy = "Drogba";   // Ýlk Drogba spawnlanýr
+
+    public int currentRound = 1;     
+    public int maxRounds = 3;
+    private bool roundFinished = false;
+
+    public GameObject round1Screen; // Drogbalarýn geleceði geçiþ ekraný 
+    public GameObject round2Screen; // Alexlerin geleceði geçiþ ekraný
+    public GameObject round3Screen; // Quaresmalarýn geleceði geçiþ ekraný
+    public GameObject FailScreen; // Baþarýsýz olmasý durumunda çýkacak ekran
+    public GameObject WinScreen; // 3 roundu tamamlayýp oyunu kazanmasý durumunda çýkacak ekran
+
+    private GameObject currentRoundScreen;
+
+    public TextMeshProUGUI countdownText;
+
+    private float countdownTime = 40f; // Tur baþýna 40 saniye geri sayým
+    private bool isCountingDown = false; // Geri sayým aktif mi?
+
+    private RunnerController runnerController;
+
+    
+
+    void Start()
+    {
+        Time.timeScale = 0f;            // En baþta oyundaki her þey durur
+        ShowRoundScreen(currentRound);  // Ýlk turda drogbalarýn ekranýný sahneye getirir.
+        runnerController = RunnerCharacter.GetComponent<RunnerController>();
+
+
+    }
+
+    void Update()
+    {
+        //  Eðer tur ekraný açýksa ve R'ye basýlýrsa yeni tur baþlat
+        if (roundFinished && Input.GetKeyDown(KeyCode.R))
+        {
+            StartNewRound();
+            
+        }
+
+        
+        if(isCountingDown)
+        {
+            HandleCountdown();  // Düzenli olarak geri sayýmý kontrol eder
+        }
+
+        
+     
+    }
+
+    private void ShowRoundScreen(int round)
+    {
+        roundFinished = true;
+        Time.timeScale = 0f;
+        isCountingDown = false;
+        if (round == 1) currentRoundScreen = round1Screen;
+        else if (round == 2) currentRoundScreen = round2Screen;
+        else if (round == 3) currentRoundScreen = round3Screen;
+        else if (round == 4) currentRoundScreen = FailScreen;
+        else if (round == 5) currentRoundScreen = WinScreen;
+        
+
+        if (currentRoundScreen != null)
+        {
+            currentRoundScreen.SetActive(true);
+        }
+        RunnerCharacter.GetComponent<RunnerController>().enabled = false;  // Ara sahneler esnasýnda karakterin
+                                                                            // hareketini engeller
+    }
+
+    private void StartNewRound()
+    {
+        
+        roundFinished = false;
+        Time.timeScale = 1f; // Oyunu baþlat
+        countdownTime = 40f;    
+        isCountingDown = true;
+        countdownText.gameObject.SetActive(true);   // Geri sayým UI'ýný etkinleþtirir
+        RunnerCharacter.GetComponent<RunnerController>().enabled = true;
+
+        if (currentRoundScreen != null)
+            currentRoundScreen.SetActive(false); // Tur ekranýný kapat
+        if (currentRoundScreen == WinScreen)
+        {
+            Time.timeScale = 1.0f;
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+            return;
+        }
+
+/*
+        if (currentRound == 1)
+        {
+            DrogbaSpawn();
+            runnerController.sliderSpeed = 150f;
+        }
+           
+        else if (currentRound == 2)
+        {
+            AlexSpawn();
+            runnerController.sliderSpeed = 100f;
+        }
+
+        else if (currentRound == 3)
+        {
+            QuaresmaSpawn();
+            runnerController.sliderSpeed = 70f; 
+        }
+*/
+        else if(currentRound == 4)
+        {
+            currentRound = 1; // Eðer baþarýsýz olup R ye bastýysa 1 numaralý drogba ara sahnesine geri dön
+            Start();
+        }
+        else if (currentRound == 5)
+        {
+            //Oyunu bitirip bir daha R ye basarsa tekrar 1. savaþa döner
+            isCountingDown = false;
+            countdownText.gameObject.SetActive(false); 
+
+            
+            RestartGame(); // Yeni tur baþlat
+        }
+    }
+
+   /*
+    private void DrogbaSpawn()
+    {
+        ActualEnemy = "Drogba";
+        SpawnEnemy(Drogba);
+    }
+
+    private void AlexSpawn()
+    {
+        ActualEnemy = "Alex";
+        SpawnEnemy(Alex);
+    }
+
+    private void QuaresmaSpawn()
+    {
+        ActualEnemy = "Quaresma";
+        SpawnEnemy(Quaresma);
+    }
+
+    private void SpawnEnemy(GameObject enemyPrefab)
+    {
+        Vector3[] positions = new Vector3[]
+        {
+            new Vector3(101.6f, 174.3f, 142.9f),
+            new Vector3(105.6f, 174.3f, 142.9f),
+            new Vector3(110.26f, 174.3f, 142.9f)
+        };
+
+        foreach (Vector3 pos in positions)
+        {
+            Instantiate(enemyPrefab, pos, Quaternion.Euler(0, 270, 0));
+        }
+    }
+    
+    */
+
+    private void RestartGame()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        // Her bir düþmaný (0,0,0)'a taþý ve yok et
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.transform.position = Vector3.zero; 
+            Destroy(enemy); 
+        }
+        
+    
+        ActualEnemy = "Drogba";
+        if (currentRound == 5)
+        {
+            currentRound = 1; 
+        }
+        else
+        {
+            currentRound = 4;       // Baþarýsýz ekranýný aç
+        }
+
+
+        countdownTime = 40f;
+        Start();
+}
+
+    private void HandleCountdown()
+    {
+        countdownTime -= Time.deltaTime;
+        countdownText.text = Mathf.Ceil(countdownTime).ToString(); // Geri sayým deðerini ekranda göster
+
+        if (countdownTime <= 0)
+        {
+            Debug.Log("currentRound");
+            if(currentRound <= 3)
+            {
+                currentRound++;
+                ShowRoundScreen(currentRound);
+            }
+            else
+            {
+                currentRound = 5;
+                ShowRoundScreen(currentRound);
+
+            }
+            
+            
+            
+        }
+    }
+
+    
+    
+
+
+
+}

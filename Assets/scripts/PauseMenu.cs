@@ -95,7 +95,12 @@ public class PauseMenu : MonoBehaviour
         gameIsPaused = true;
 
         // Karakter hareketlerini durdur
-        Object.FindFirstObjectByType<RedThrowerController>().EnableControls(false);  // Hareketi durdur
+
+        // !!!!!!!!!!!!!!!!!!!!
+        // Þuanda sadece RedThrower için çalýþýyor. Kaçan bölümlerinde kaçan için çalýþmalý. Kaçanýn Controllerýnda ayný isme sahip
+        // baþka bir fonksiyon var
+
+        //Object.FindFirstObjectByType<RedThrowerController>().EnableControls(false);  // Hareketi durdur
 
         // Diðer UI öðelerini gizle
         ToggleUIElements(false);
