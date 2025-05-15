@@ -24605,6 +24605,10 @@ PrefabInstance:
       propertyPath: accuracySlider
       value: 
       objectReference: {fileID: 1051129227}
+    - target: {fileID: 4581359237828935283, guid: 1f017a0df6f04904b874277d8c229958, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7822760186843605797, guid: 1f017a0df6f04904b874277d8c229958, type: 3}
       propertyPath: m_Name
       value: Runner
