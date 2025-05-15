@@ -9,30 +9,34 @@ public class RunnerController : MonoBehaviour
     public Transform cameraTransform;
     private Rigidbody rb;
 
-    // Added: BoxCollider used as catch zone for balls
     public BoxCollider catchZone;
-
-    // Added: Slider for catch accuracy
     public Slider accuracySlider;
     public float sliderSpeed = 100f;
     private int sliderDirection = 1;
 
-    // Variables for slow-motion feature
     private bool isSlow = false;
 
-    // Camera rotation vars
     private float rotationX = 0f;
     private float rotationY = 0f;
     public float sensitivity = 2f;
 
-    public bool isAlive=true;
-
+    public bool isAlive = true;
     public bool CanSlowTime = true;
+
+    private bool isTurning = false;
+    private Quaternion targetRotation;
+    public float turnSpeed = 180f;
+
+    private bool isSpeedBoosted = false;
+    private float originalSpeed;
+
+    public GameObject CilekliLink;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        rotationY = transform.eulerAngles.y; // Baþlangýç rotasyonunu al
     }
 
     void Update()
@@ -40,22 +44,48 @@ public class RunnerController : MonoBehaviour
         if (PauseMenu.gameIsPaused) return;
 
         Move();
-        RotateCamera();
         UpdateAccuracySlider();
+        HandleTurn(); // Smooth dönüþ burada yapýlacak
 
-        // 2) Catch ball on left click / touch
-        if (Input.GetMouseButtonDown(0))  // [MODIFIED]
+        if (!isTurning)
         {
-            CatchBall();  // [ADDED]
+            RotateCamera(); // Dönüþ yapýlýyorsa mouse kontrolünü devre dýþý býrak
         }
 
-        // 3) Slow motion on '1' key
-        if (!isSlow && Input.GetKeyDown(KeyCode.Alpha1))  // [ADDED]
+        if (Input.GetMouseButtonDown(0))
+        {
+            CatchBall();
+        }
+
+        if (!isSlow && Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (CanSlowTime)
             {
                 StartCoroutine(SlowTime());
                 CanSlowTime = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && !isTurning)
+        {
+            rotationY += 180f;
+            targetRotation = Quaternion.Euler(0f, rotationY, 0f);
+            isTurning = true;
+        }
+    }
+
+    void HandleTurn()
+    {
+        if (isTurning)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+
+            cameraTransform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
+            {
+                transform.rotation = targetRotation;
+                isTurning = false;
             }
         }
     }
@@ -70,60 +100,44 @@ public class RunnerController : MonoBehaviour
 
     void RotateCamera()
     {
-        // 1) Fare hareketini oku
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-        // 2) Dikey bakýþ açýsýný güncelle ve sýnýrla
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
-        // 3) Yatay dönüþ açýsýný güncelle
         rotationY += mouseX;
 
-        // 4) Karakteri yatayda döndür
         transform.rotation = Quaternion.Euler(0f, rotationY, 0f);
-
-        // 5) Kamerayý sadece dikeyde (pitch) eð
         cameraTransform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
     }
 
-
-    // Added: Coroutine for temporary slow-motion
     private IEnumerator SlowTime()
     {
-        isSlow = true;                                 // [ADDED]
-        Time.timeScale = 0.3f;                         // [ADDED]
-        yield return new WaitForSecondsRealtime(3f);   // [ADDED]
-        Time.timeScale = 1f;                           // [ADDED]
-        isSlow = false;                                // [ADDED]
+        isSlow = true;
+        Time.timeScale = 0.3f;
+        yield return new WaitForSecondsRealtime(3f);
+        Time.timeScale = 1f;
+        isSlow = false;
     }
 
-    // Added: Catch logic
     private void CatchBall()
     {
-        // Overlap within catchZone
         Collider[] hits = Physics.OverlapBox(catchZone.bounds.center,
                                              catchZone.bounds.extents,
                                              catchZone.transform.rotation);
-        float chance = 1f - (Mathf.Abs(accuracySlider.value) / 100f);  // Higher when slider near zero
+        float chance = 1f - (Mathf.Abs(accuracySlider.value) / 100f);
         foreach (Collider col in hits)
         {
             if (col.CompareTag("Ball"))
             {
                 if (Random.value < chance)
                 {
-                    // Successful catch: deactivate or pick up ball
-                    Destroy(col.gameObject);  // or implement pickup behavior
+                    Destroy(col.gameObject);
                 }
-                break;  // Only attempt one ball
+                break;
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // No longer needed: catch in CatchBall(), remove old empty block
     }
 
     void UpdateAccuracySlider()
@@ -153,5 +167,39 @@ public class RunnerController : MonoBehaviour
     public void EnableControls(bool state)
     {
         this.enabled = state;
+    }
+        
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CilekliLink"))
+        {
+            if (!isSpeedBoosted)
+            {
+                StartCoroutine(SpeedBoost());
+            }
+
+            Destroy(other.gameObject); // Objeyi sahneden kaldýr
+        }
+    }
+    private IEnumerator SpeedBoost()
+    {
+
+        isSpeedBoosted = true;
+        originalSpeed = moveSpeed;
+        moveSpeed *= 1.5f; // %30 hýz artýþý
+
+        StartCoroutine(ShowSpeedBoostMessage());
+
+        yield return new WaitForSeconds(5f); // 5 saniye bekle
+
+        moveSpeed = originalSpeed;
+        isSpeedBoosted = false;
+
+    }
+    private IEnumerator ShowSpeedBoostMessage()
+    {
+        CilekliLink.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        CilekliLink.SetActive(false);
     }
 }
