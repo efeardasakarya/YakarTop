@@ -6141,8 +6141,8 @@ Transform:
   m_GameObject: {fileID: 707934779}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7119033, z: -0, w: 0.70227766}
-  m_LocalPosition: {x: -18.65, y: 2.9099884, z: -2.8}
-  m_LocalScale: {x: 106.95, y: 6.59024, z: 1}
+  m_LocalPosition: {x: -19.87, y: 2.9099884, z: -2.8}
+  m_LocalScale: {x: 106.95, y: 6.59024, z: 0.10362}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 81468917}
@@ -20042,6 +20042,8 @@ MonoBehaviour:
   Drogba: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
   Alex: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
   Quaresma: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
+  EnemyLocation1: {x: 111.097, y: 175.67, z: 142.94049}
+  EnemyLocation2: {x: 94.25, y: 175.67, z: 142.94049}
 --- !u!1001 &1658057848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23038,8 +23040,8 @@ Transform:
   m_GameObject: {fileID: 1935639140}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7119033, z: -0, w: 0.70227766}
-  m_LocalPosition: {x: -6.72, y: 2.9099884, z: -2.96}
-  m_LocalScale: {x: 106.95, y: 6.59024, z: 1}
+  m_LocalPosition: {x: -4.69, y: 2.9099884, z: -2.96}
+  m_LocalScale: {x: 106.95, y: 6.59024, z: 0.10362}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 81468917}

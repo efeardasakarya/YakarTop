@@ -43,6 +43,8 @@ public class RunnerGameManager : MonoBehaviour
     public GameObject Alex;
     public GameObject Quaresma;
 
+    public Vector3 EnemyLocation1, EnemyLocation2;
+
 
 
     void Start()
@@ -182,9 +184,8 @@ public class RunnerGameManager : MonoBehaviour
     {
         Vector3[] positions = new Vector3[]
         {
-        new Vector3(96.60f, 175.37f, 141.4193f),      // Enemy 0
-        new Vector3(110.5528f, 175.37f, 144.3283f),   // Enemy 1
-        };
+           EnemyLocation1, EnemyLocation2,
+    };  
 
         float[] yRotations = new float[]
         {
