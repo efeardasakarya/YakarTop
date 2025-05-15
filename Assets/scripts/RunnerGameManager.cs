@@ -17,10 +17,10 @@ public class RunnerGameManager : MonoBehaviour
     public Camera blueCamera;
      */
     private bool IsGameStart;
-    
+
     private string ActualEnemy = "Drogba";   // Ýlk Drogba spawnlanýr
 
-    public int currentRound = 1;     
+    public int currentRound = 1;
     public int maxRounds = 3;
     private bool roundFinished = false;
 
@@ -43,47 +43,50 @@ public class RunnerGameManager : MonoBehaviour
     public GameObject Alex;
     public GameObject Quaresma;
 
-    
+
 
     void Start()
     {
         Time.timeScale = 0f;            // En baþta oyundaki her þey durur
-        ShowRoundScreen(currentRound);  // Ýlk turda drogbalarýn ekranýný sahneye getirir.
         runnerController = RunnerCharacter.GetComponent<RunnerController>();
+        ShowRoundScreen(currentRound);  // Ýlk turda drogbalarýn ekranýný sahneye getirir.
+
 
 
     }
 
     void Update()
     {
-        Debug.Log(runnerController.isAlive);
+
         //  Eðer tur ekraný açýksa ve R'ye basýlýrsa yeni tur baþlat
         if (roundFinished && Input.GetKeyDown(KeyCode.R))
         {
             StartNewRound();
-            
+
         }
 
-        
-        if(isCountingDown)
+
+        if (isCountingDown)
         {
             HandleCountdown();  // Düzenli olarak geri sayýmý kontrol eder
         }
 
-        if(!runnerController.isAlive)
+        if (!(runnerController.isAlive))
         {
             currentRound = 4;
             ShowRoundScreen(currentRound);
-
+            Debug.Log("qqqqqqq");
         }
 
-       
-     
+
+
     }
 
     private void ShowRoundScreen(int round)
     {
+        Debug.Log("Show round screen çalýþtý");
         roundFinished = true;
+        runnerController.isAlive = true;
         Time.timeScale = 0f;
         isCountingDown = false;
         if (round == 1) currentRoundScreen = round1Screen;
@@ -91,22 +94,22 @@ public class RunnerGameManager : MonoBehaviour
         else if (round == 3) currentRoundScreen = round3Screen;
         else if (round == 4) currentRoundScreen = FailScreen;
         else if (round == 5) currentRoundScreen = WinScreen;
-        
+
 
         if (currentRoundScreen != null)
         {
             currentRoundScreen.SetActive(true);
         }
         RunnerCharacter.GetComponent<RunnerController>().enabled = false;  // Ara sahneler esnasýnda karakterin
-                                                                            // hareketini engeller
+                                                                           // hareketini engeller
     }
 
     private void StartNewRound()
     {
-        
+
         roundFinished = false;
         Time.timeScale = 1f; // Oyunu baþlat
-        countdownTime = 40f;    
+        countdownTime = 40f;
         isCountingDown = true;
         countdownText.gameObject.SetActive(true);   // Geri sayým UI'ýný etkinleþtirir
         RunnerCharacter.GetComponent<RunnerController>().enabled = true;
@@ -127,7 +130,7 @@ public class RunnerGameManager : MonoBehaviour
             DrogbaSpawn();
             runnerController.sliderSpeed = 150f;
         }
-          
+
         else if (currentRound == 2)
         {
             AlexSpawn();
@@ -137,26 +140,26 @@ public class RunnerGameManager : MonoBehaviour
         else if (currentRound == 3)
         {
             QuaresmaSpawn();
-            runnerController.sliderSpeed = 70f; 
+            runnerController.sliderSpeed = 70f;
         }
 
-        else if(currentRound == 4)
+        else if (currentRound == 4)
         {
             currentRound = 1; // Eðer baþarýsýz olup R ye bastýysa 1 numaralý drogba ara sahnesine geri dön
-            Start();
+            RestartGame();
         }
         else if (currentRound == 5)
         {
             //Oyunu bitirip bir daha R ye basarsa tekrar 1. savaþa döner
             isCountingDown = false;
-            countdownText.gameObject.SetActive(false); 
+            countdownText.gameObject.SetActive(false);
 
-            
+
             RestartGame(); // Yeni tur baþlat
         }
     }
 
-   
+
     private void DrogbaSpawn()
     {
         ActualEnemy = "Drogba";
@@ -205,12 +208,13 @@ public class RunnerGameManager : MonoBehaviour
         // Her bir düþmaný (0,0,0)'a taþý ve yok et
         foreach (GameObject enemy in enemies)
         {
-            enemy.transform.position = Vector3.zero; 
-            Destroy(enemy); 
+            enemy.transform.position = Vector3.zero;
+            Destroy(enemy);
         }
-        
-    
+
+
         ActualEnemy = "Drogba";
+        /*
         if (currentRound == 5)
         {
             currentRound = 1; 
@@ -219,11 +223,11 @@ public class RunnerGameManager : MonoBehaviour
         {
             currentRound = 4;       // Baþarýsýz ekranýný aç
         }
-
+        */
 
         countdownTime = 40f;
         Start();
-}
+    }
 
     private void HandleCountdown()
     {
@@ -233,7 +237,7 @@ public class RunnerGameManager : MonoBehaviour
         if (countdownTime <= 0)
         {
             Debug.Log("currentRound");
-            if(currentRound <= 2)
+            if (currentRound <= 2)
             {
                 currentRound++;
                 ShowRoundScreen(currentRound);
@@ -250,5 +254,5 @@ public class RunnerGameManager : MonoBehaviour
         }
     }
 
-   
+
 }
