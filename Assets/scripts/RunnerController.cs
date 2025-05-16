@@ -181,6 +181,21 @@ public class RunnerController : MonoBehaviour
             Destroy(other.gameObject); // Objeyi sahneden kaldýr
         }
     }
+
+    // RunnerController.cs içinde class'ýn sonuna ekleyin:
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Eðer capsule collider'ýnýzla top çarpýþýrsa:
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            // Oyuncuyu öldür
+            isAlive = false;
+            Debug.Log("Oyuncu vuruldu, oyun bitti!");
+            // Burada isAlive false ise Update/Move vb. devre dýþý kalacak þekilde kontrol ekleyebilirsiniz.
+        }
+    }
+
     private IEnumerator SpeedBoost()
     {
 

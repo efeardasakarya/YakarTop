@@ -23,29 +23,22 @@ public class BallController : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter(Collider other)
+    // BallController.cs
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.CompareTag("Wall") || other.CompareTag("Ground") || other.CompareTag("Enemy") )
+        if (collision.gameObject.CompareTag("Wall") ||
+            collision.gameObject.CompareTag("Ground") ||
+            collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
-            
-            
         }
-
-        else if (other.CompareTag("Runner"))
+        else if (collision.gameObject.CompareTag("Runner"))
         {
-            Debug.Log("ya herro ya merro");
-
-            RunnerController rc = other.GetComponent<RunnerController>();
-            if (rc != null)
-            {
-                rc.isAlive = false;
-            }
-            else
-            {
-                Debug.LogWarning("RunnerController component not found on Runner object!");
-            }
+            // Oyuncunun capsule collider'ýyla çarpýþtýk
+            Destroy(gameObject);
+            Debug.Log("Oyuncuya isabet etti, top yok oldu.");
         }
-
     }
+
 }
