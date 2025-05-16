@@ -25,10 +25,28 @@ public class DodgeballEnemy : MonoBehaviour
 
     void Update()
     {
+        // Her frame oyuncuya bak
+        FacePlayer();
+
         if (canMove)
         {
             MoveSideToSide();
         }
+    }
+
+    // Yatayda sadece Y eksenini kilitleyerek oyuncuya dön
+    private void FacePlayer()
+    {
+        // Oyuncunun pozisyonunu al, ama Y eksenini sabitle
+        Vector3 lookPos = player.position;
+        lookPos.y = transform.position.y;
+
+        // Doğrudan dönmek için:
+        transform.LookAt(lookPos);
+
+        // Eğer dönüşü yumuşatmak istersen:
+        // Quaternion targetRot = Quaternion.LookRotation(lookPos - transform.position);
+        // transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
     }
 
     void MoveSideToSide()
@@ -52,9 +70,9 @@ public class DodgeballEnemy : MonoBehaviour
     {
         if (!canThrow) yield break;
 
-        canMove = false; // Hareketi durdur
+        canMove = false;
         GameObject ball = Instantiate(ballPrefab, handTransform.position, Quaternion.identity);
-        ball.transform.SetParent(handTransform); // Top elde dursun
+        ball.transform.SetParent(handTransform);
 
         Rigidbody rb = ball.GetComponent<Rigidbody>();
         if (rb != null)
@@ -75,16 +93,16 @@ public class DodgeballEnemy : MonoBehaviour
             rb.isKinematic = false;
             rb.useGravity = true;
 
-            // Daha hassas nişan için pozisyonu yeniden hesapla
-            Vector3 direction = (player.position - handTransform.position).normalized;
+            // Düzgün yön ve doğru hız
+            Vector3 direction = (player.position + Vector3.up * 1.5f - handTransform.position).normalized;
             rb.linearVelocity = direction * throwForce;
         }
 
         canThrow = false;
-
         yield return new WaitForSeconds(0.5f);
-        canMove = true; // Hareket tekrar başlasın
+        canMove = true;
 
         DodgeballThrowManager.Instance.EnemyFinishedThrowing();
     }
+
 }
