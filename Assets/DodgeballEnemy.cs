@@ -25,7 +25,6 @@ public class DodgeballEnemy : MonoBehaviour
 
     void Update()
     {
-        // Her frame oyuncuya bak
         FacePlayer();
 
         if (canMove)
@@ -34,19 +33,11 @@ public class DodgeballEnemy : MonoBehaviour
         }
     }
 
-    // Yatayda sadece Y eksenini kilitleyerek oyuncuya dön
     private void FacePlayer()
     {
-        // Oyuncunun pozisyonunu al, ama Y eksenini sabitle
         Vector3 lookPos = player.position;
         lookPos.y = transform.position.y;
-
-        // Doğrudan dönmek için:
         transform.LookAt(lookPos);
-
-        // Eğer dönüşü yumuşatmak istersen:
-        // Quaternion targetRot = Quaternion.LookRotation(lookPos - transform.position);
-        // transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
     }
 
     void MoveSideToSide()
@@ -71,6 +62,8 @@ public class DodgeballEnemy : MonoBehaviour
         if (!canThrow) yield break;
 
         canMove = false;
+
+        // Topu elinde oluştur
         GameObject ball = Instantiate(ballPrefab, handTransform.position, Quaternion.identity);
         ball.transform.SetParent(handTransform);
 
@@ -86,6 +79,7 @@ public class DodgeballEnemy : MonoBehaviour
 
         if (ball == null) yield break;
 
+        // Topu elden bırak
         ball.transform.SetParent(null);
 
         if (rb != null)
@@ -93,9 +87,12 @@ public class DodgeballEnemy : MonoBehaviour
             rb.isKinematic = false;
             rb.useGravity = true;
 
-            // Düzgün yön ve doğru hız
-            Vector3 direction = (player.position + Vector3.up * 1.5f - handTransform.position).normalized;
-            rb.linearVelocity = direction * throwForce;
+            // Oyuncunun üst kısmını hedef al (baş civarı)
+            Vector3 targetPos = player.position + Vector3.up * 1.5f;
+            Vector3 throwDir = (targetPos - handTransform.position).normalized;
+
+            // Kuvvet uygula
+            rb.AddForce(throwDir * throwForce, ForceMode.VelocityChange);
         }
 
         canThrow = false;
@@ -104,5 +101,4 @@ public class DodgeballEnemy : MonoBehaviour
 
         DodgeballThrowManager.Instance.EnemyFinishedThrowing();
     }
-
 }
