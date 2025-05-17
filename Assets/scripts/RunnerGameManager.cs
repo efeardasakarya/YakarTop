@@ -54,7 +54,6 @@ public class RunnerGameManager : MonoBehaviour
         ShowRoundScreen(currentRound);  // Ýlk turda drogbalarýn ekranýný sahneye getirir.
 
 
-
     }
 
     void Update()
@@ -162,6 +161,9 @@ public class RunnerGameManager : MonoBehaviour
 
             RestartGame(); // Yeni tur baþlat
         }
+
+        runnerController.ResetDash();
+
     }
 
 

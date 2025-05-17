@@ -23,10 +23,17 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void LoadGame()
+
+    public void LoadThrowerMode()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
+        SceneManager.LoadScene("ThrowerLevel");
     }
+
+    public void LoadRunnerMode()
+    {
+        SceneManager.LoadScene("RunnerLevel");
+    }
+
 
     public void EndGame()
     {

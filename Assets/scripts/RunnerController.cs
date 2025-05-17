@@ -38,6 +38,7 @@ public class RunnerController : MonoBehaviour
     public int maxDashCount = 5;
     private int currentDashCount;
     public Image[] DashIcon;
+    
 
     void Start()
     {
@@ -256,7 +257,19 @@ public class RunnerController : MonoBehaviour
     {
         for (int i = 0; i < DashIcon.Length; i++)
         {
-            DashIcon[i].enabled = i < currentDashCount;
+            DashIcon[i].gameObject.SetActive(i < currentDashCount);
         }
     }
+
+
+    public void ResetDash()
+    {
+        currentDashCount = maxDashCount;
+
+        for (int i = 0; i < DashIcon.Length; i++)
+        {
+            DashIcon[i].gameObject.SetActive(i < maxDashCount);
+        }
+    }
+
 }
