@@ -3,102 +3,134 @@ using UnityEngine;
 
 public class DodgeballEnemy : MonoBehaviour
 {
-    public Transform player;
-    public GameObject ballPrefab;
-    public Transform handTransform;
+    [Header("References")]
+    public Transform player;               // Inspector’dan atanmalı veya tag ile bulunacak
+    public GameObject ballPrefab;          // Rigidbody’li prefab
+    public Transform handTransform;        // El pozisyonu
+
+    [Header("Movement")]
     public float moveRange = 3f;
     public float moveSpeed = 2f;
+
+    [Header("Throwing")]
     public float throwForce = 15f;
     public float minHoldTime = 1f;
     public float maxHoldTime = 3f;
 
     private Vector3 startPos;
     private bool movingRight = true;
-    private bool canThrow = false;
     private bool canMove = true;
+
+    void Awake()
+    {
+        startPos = transform.position;
+
+        // 1) Player referansını otomatik al:
+        if (player == null)
+        {
+            var pObj = GameObject.FindGameObjectWithTag("Runner");
+            if (pObj != null)
+            {
+                player = pObj.transform;
+                Debug.Log($"{name}: Player otomatik atandı.");
+            }
+            else
+            {
+                Debug.LogWarning($"{name}: Player bulunamadı! Tag’ini kontrol et.");
+            }
+        }
+
+        // 2) Manager referansı:
+        if (DodgeballThrowManager.Instance == null)
+            DodgeballThrowManager.Instance = FindObjectOfType<DodgeballThrowManager>();
+    }
 
     void Start()
     {
-        startPos = transform.position;
+        // 3) Inspector atamalarını kontrol et:
+        if (player == null) Debug.LogError($"{name}: Player Transform atanmamış!");
+        if (ballPrefab == null) Debug.LogError($"{name}: Ball Prefab atanmamış!");
+        if (handTransform == null) Debug.LogError($"{name}: Hand Transform atanmamış!");
+
         DodgeballThrowManager.Instance.RegisterEnemy(this);
     }
 
     void Update()
     {
-        FacePlayer();
+        // 4) LookAtPlayer gerçekten çağrılıyor mu?
+        if (player != null)
+        {
+            LookAtPlayer();
+        }
 
         if (canMove)
-        {
             MoveSideToSide();
-        }
     }
 
-    private void FacePlayer()
+    void LookAtPlayer()
     {
-        Vector3 lookPos = player.position;
-        lookPos.y = transform.position.y;
-        transform.LookAt(lookPos);
+        // 5) Yatay düzlemde yön hesaplama
+        Vector3 dir = player.position - transform.position;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude < 0.001f)
+        {
+            Debug.Log($"{name}: Player ile aynı pozisyondayım, dönme gereksiz.");
+            return;
+        }
+
+        Quaternion targetRot = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
+
+        // 6) Her frame logla
+        Debug.Log($"{name} bakış açısı (Euler): {transform.eulerAngles}");
     }
 
     void MoveSideToSide()
     {
-        float moveDir = movingRight ? 1 : -1;
-        transform.Translate(Vector3.right * moveDir * moveSpeed * Time.deltaTime);
+        Vector3 offset = Vector3.right * (movingRight ? 1 : -1) * moveSpeed * Time.deltaTime;
+        transform.Translate(offset, Space.World);
 
         if (Vector3.Distance(transform.position, startPos) > moveRange)
-        {
             movingRight = !movingRight;
-        }
     }
 
     public void BeginThrow()
     {
-        canThrow = true;
-        StartCoroutine(ThrowRoutine());
+        StartCoroutine(ThrowBallAfterDelay());
     }
 
-    IEnumerator ThrowRoutine()
+    private IEnumerator ThrowBallAfterDelay()
     {
-        if (!canThrow) yield break;
-
         canMove = false;
+        float delay = Random.Range(0.2f, 1f);
+        Debug.Log($"{name}: Throw gecikmesi {delay:F2}s");
+        yield return new WaitForSeconds(delay);
 
-        // Topu elinde oluştur
+        ThrowBall();
+
+        yield return new WaitForSeconds(Random.Range(minHoldTime, maxHoldTime));
+        canMove = true;
+        DodgeballThrowManager.Instance.EnemyFinishedThrowing();
+    }
+
+    void ThrowBall()
+    {
+        if (player == null || ballPrefab == null || handTransform == null)
+            return;
+
         GameObject ball = Instantiate(ballPrefab, handTransform.position, Quaternion.identity);
-        ball.transform.SetParent(handTransform);
+        Vector3 targetPos = player.position + Vector3.up * 1.2f;
+        Vector3 dir = (targetPos - handTransform.position).normalized;
 
         Rigidbody rb = ball.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (rb == null)
         {
-            rb.isKinematic = true;
-            rb.useGravity = false;
+            Debug.LogError($"{name}: Ball prefab’da Rigidbody yok!");
+            return;
         }
 
-        float holdTime = Random.Range(minHoldTime, maxHoldTime);
-        yield return new WaitForSeconds(holdTime);
-
-        if (ball == null) yield break;
-
-        // Topu elden bırak
-        ball.transform.SetParent(null);
-
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.useGravity = true;
-
-            // Oyuncunun üst kısmını hedef al (baş civarı)
-            Vector3 targetPos = player.position + Vector3.up * 1.5f;
-            Vector3 throwDir = (targetPos - handTransform.position).normalized;
-
-            // Kuvvet uygula
-            rb.AddForce(throwDir * throwForce, ForceMode.VelocityChange);
-        }
-
-        canThrow = false;
-        yield return new WaitForSeconds(0.5f);
-        canMove = true;
-
-        DodgeballThrowManager.Instance.EnemyFinishedThrowing();
+        rb.linearVelocity = dir * throwForce;
+        Debug.Log($"{name} top fırlattı. Yön: {dir}, Hız: {throwForce}");
     }
 }

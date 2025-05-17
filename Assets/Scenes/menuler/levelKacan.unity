@@ -15253,8 +15253,8 @@ MonoBehaviour:
   Drogba: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
   Alex: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
   Quaresma: {fileID: 8199885351204845197, guid: a647eea9879d28f43ab6f7d76701067e, type: 3}
-  EnemyLocation1: {x: 111.097, y: 175.67, z: 142.94049}
-  EnemyLocation2: {x: 94.25, y: 175.67, z: 142.94049}
+  EnemyLocation1: {x: 111.097, y: 174.58, z: 142.9405}
+  EnemyLocation2: {x: 94.25, y: 174.58, z: 142.94049}
 --- !u!1001 &1658057848
 PrefabInstance:
   m_ObjectHideFlags: 0
