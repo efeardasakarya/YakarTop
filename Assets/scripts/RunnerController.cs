@@ -32,30 +32,37 @@ public class RunnerController : MonoBehaviour
 
     public GameObject CilekliLink;
 
+    public float dashForce = 10f;
+    public float dashDuration = 0.2f;
+    private bool isDashing = false;
+    public int maxDashCount = 5;
+    private int currentDashCount;
+    public Image[] DashIcon;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
-        rotationY = transform.eulerAngles.y; // Baþlangýç rotasyonunu al
+        rotationY = transform.eulerAngles.y;
+
+        currentDashCount = maxDashCount;
+        UpdateDashIcon();
     }
 
     void Update()
     {
         if (PauseMenu.gameIsPaused) return;
+        if (!isAlive) return;
 
         Move();
         UpdateAccuracySlider();
-        HandleTurn(); // Smooth dönüþ burada yapýlacak
+        HandleTurn();
 
         if (!isTurning)
-        {
-            RotateCamera(); // Dönüþ yapýlýyorsa mouse kontrolünü devre dýþý býrak
-        }
+            RotateCamera();
 
         if (Input.GetMouseButtonDown(0))
-        {
             CatchBall();
-        }
 
         if (!isSlow && Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -72,6 +79,18 @@ public class RunnerController : MonoBehaviour
             targetRotation = Quaternion.Euler(0f, rotationY, 0f);
             isTurning = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && currentDashCount > 0)
+        {
+            Vector3 dashDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+            if (dashDirection.magnitude > 0.1f)
+            {
+                dashDirection = transform.TransformDirection(dashDirection.normalized);
+                currentDashCount--;
+                StartCoroutine(Dash(dashDirection));
+                UpdateDashIcon();
+            }
+        }
     }
 
     void HandleTurn()
@@ -79,7 +98,6 @@ public class RunnerController : MonoBehaviour
         if (isTurning)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-
             cameraTransform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
 
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
@@ -123,9 +141,7 @@ public class RunnerController : MonoBehaviour
 
     private void CatchBall()
     {
-        Collider[] hits = Physics.OverlapBox(catchZone.bounds.center,
-                                             catchZone.bounds.extents,
-                                             catchZone.transform.rotation);
+        Collider[] hits = Physics.OverlapBox(catchZone.bounds.center, catchZone.bounds.extents, catchZone.transform.rotation);
         float chance = 1f - (Mathf.Abs(accuracySlider.value) / 100f);
         foreach (Collider col in hits)
         {
@@ -168,7 +184,7 @@ public class RunnerController : MonoBehaviour
     {
         this.enabled = state;
     }
-        
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("CilekliLink"))
@@ -178,43 +194,61 @@ public class RunnerController : MonoBehaviour
                 StartCoroutine(SpeedBoost());
             }
 
-            Destroy(other.gameObject); // Objeyi sahneden kaldýr
+            Destroy(other.gameObject);
+
+            // Sahnedeki spawner’a bilgi verip yeni boost çýkmasýný saðla
+            FindObjectOfType<LinkSpawner>()?.ClearBoost();
         }
     }
 
-    // RunnerController.cs içinde class'ýn sonuna ekleyin:
-
     private void OnCollisionEnter(Collision collision)
     {
-        // Eðer capsule collider'ýnýzla top çarpýþýrsa:
         if (collision.gameObject.CompareTag("Ball"))
         {
-            // Oyuncuyu öldür
             isAlive = false;
             Debug.Log("Oyuncu vuruldu, oyun bitti!");
-            // Burada isAlive false ise Update/Move vb. devre dýþý kalacak þekilde kontrol ekleyebilirsiniz.
         }
     }
 
     private IEnumerator SpeedBoost()
     {
-
         isSpeedBoosted = true;
         originalSpeed = moveSpeed;
-        moveSpeed *= 1.5f; // %30 hýz artýþý
+        moveSpeed *= 1.5f;
 
         StartCoroutine(ShowSpeedBoostMessage());
 
-        yield return new WaitForSeconds(5f); // 5 saniye bekle
+        yield return new WaitForSeconds(5f);
 
         moveSpeed = originalSpeed;
         isSpeedBoosted = false;
-
     }
+
     private IEnumerator ShowSpeedBoostMessage()
     {
         CilekliLink.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f); // UI 2 saniye gözüksün
         CilekliLink.SetActive(false);
+    }
+
+    private IEnumerator Dash(Vector3 direction)
+    {
+        isDashing = true;
+        float elapsed = 0f;
+        while (elapsed < dashDuration)
+        {
+            transform.position += direction * dashForce * Time.deltaTime;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        isDashing = false;
+    }
+
+    void UpdateDashIcon()
+    {
+        for (int i = 0; i < DashIcon.Length; i++)
+        {
+            DashIcon[i].enabled = i < currentDashCount;
+        }
     }
 }
