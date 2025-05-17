@@ -110,6 +110,9 @@ public class RunnerGameManager : MonoBehaviour
     {
 
         roundFinished = false;
+        RunnerCharacter.transform.position = new Vector3(100f, 175.131f, 142.89f);
+        RunnerCharacter.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+
         Time.timeScale = 1f; // Oyunu baþlat
         countdownTime = 40f;
         isCountingDown = true;

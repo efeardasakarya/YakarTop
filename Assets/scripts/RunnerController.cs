@@ -199,6 +199,8 @@ public class RunnerController : MonoBehaviour
             // Sahnedeki spawner’a bilgi verip yeni boost çýkmasýný saðla
             FindObjectOfType<LinkSpawner>()?.ClearBoost();
         }
+
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -207,6 +209,12 @@ public class RunnerController : MonoBehaviour
         {
             isAlive = false;
             Debug.Log("Oyuncu vuruldu, oyun bitti!");
+        }
+
+        if (collision.gameObject.CompareTag("Limit"))
+        {
+            isAlive = false;
+            Debug.Log("Kural Ýhlali yaptýn oyun iptal");
         }
     }
 

@@ -6016,7 +6016,7 @@ GameObject:
   - component: {fileID: 707934781}
   m_Layer: 0
   m_Name: Cube (6)
-  m_TagString: Untagged
+  m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18237,7 +18237,7 @@ GameObject:
   - component: {fileID: 1935639142}
   m_Layer: 0
   m_Name: Cube (5)
-  m_TagString: Untagged
+  m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19858,7 +19858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7952610366718585832, guid: 1f017a0df6f04904b874277d8c229958, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 145
+      value: 142.89
       objectReference: {fileID: 0}
     - target: {fileID: 7952610366718585832, guid: 1f017a0df6f04904b874277d8c229958, type: 3}
       propertyPath: m_LocalRotation.w
