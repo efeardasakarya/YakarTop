@@ -40,9 +40,7 @@ public class DodgeballEnemy : MonoBehaviour
             }
         }
 
-        // 2) Manager referansı:
-        if (DodgeballThrowManager.Instance == null)
-            DodgeballThrowManager.Instance = FindObjectOfType<DodgeballThrowManager>();
+        
     }
 
     void Start()
@@ -52,7 +50,7 @@ public class DodgeballEnemy : MonoBehaviour
         if (ballPrefab == null) Debug.LogError($"{name}: Ball Prefab atanmamış!");
         if (handTransform == null) Debug.LogError($"{name}: Hand Transform atanmamış!");
 
-        DodgeballThrowManager.Instance.RegisterEnemy(this);
+        
     }
 
     void Update()
@@ -111,7 +109,7 @@ public class DodgeballEnemy : MonoBehaviour
 
         yield return new WaitForSeconds(Random.Range(minHoldTime, maxHoldTime));
         canMove = true;
-        DodgeballThrowManager.Instance.EnemyFinishedThrowing();
+        
     }
 
     void ThrowBall()
