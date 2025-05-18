@@ -9,7 +9,7 @@ public class DodgeballThrowManager : MonoBehaviour
 {
     [Header("Settings")]
     [Tooltip("Her top fýrlatýmý arasýnda beklenen süre (saniye).")]
-    public float timeBetweenThrows = 1.5f;
+    public float timeBetweenThrows = 2f;
 
     private List<DodgeballEnemy> enemies = new List<DodgeballEnemy>();
     private int currentIndex = 0;
