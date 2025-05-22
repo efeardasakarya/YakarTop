@@ -86,7 +86,7 @@ public class DodgeballEnemy : MonoBehaviour
 
     void MoveSideToSide()
     {
-        Vector3 offset = Vector3.right * (movingRight ? 1 : -1) * moveSpeed * Time.deltaTime;
+        Vector3 offset = Vector3.forward * (movingRight ? 1 : -1) * moveSpeed * Time.deltaTime;
         transform.Translate(offset, Space.World);
 
         if (Vector3.Distance(transform.position, startPos) > moveRange)
@@ -114,7 +114,7 @@ public class DodgeballEnemy : MonoBehaviour
 
     void ThrowBall()
     {
-        if (player == null || ballPrefab == null || handTransform == null)
+        if ( ballPrefab == null || handTransform == null)
             return;
 
         GameObject ball = Instantiate(ballPrefab, handTransform.position, Quaternion.identity);

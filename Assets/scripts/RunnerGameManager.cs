@@ -131,18 +131,21 @@ public class RunnerGameManager : MonoBehaviour
 
         if (currentRound == 1)
         {
+            
             DrogbaSpawn();
             runnerController.sliderSpeed = 150f;
         }
 
         else if (currentRound == 2)
         {
+            
             AlexSpawn();
             runnerController.sliderSpeed = 100f;
         }
 
         else if (currentRound == 3)
         {
+            
             QuaresmaSpawn();
             runnerController.sliderSpeed = 70f;
         }
@@ -187,6 +190,18 @@ public class RunnerGameManager : MonoBehaviour
 
     private void SpawnEnemy(GameObject enemyPrefab)
     {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        // Her bir düþmaný (0,0,0)'a taþý ve yok et
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.transform.position = Vector3.zero;
+            Destroy(enemy);
+        }
+
+
+
+
         Vector3[] positions = new Vector3[]
         {
            EnemyLocation1, EnemyLocation2,
