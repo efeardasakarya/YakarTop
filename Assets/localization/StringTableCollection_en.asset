@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: StringTableCollection_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: d8620ad759784f54982056241b9bfd20, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 73341796352
+    m_Localized: Thrower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1140309819392
+    m_Localized: Runner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2049039335424
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2052726128640
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2056052211712
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2059235688448
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4954551156736
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21761911619584
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21763450929152
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21764793106432
+    m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55274274750464
+    m_Localized: 'You gobbled a Strawberry Link!
+
+      Your speed increased!'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

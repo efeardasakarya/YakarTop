@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using TMPro; // TextMesh Pro için gerekli namespace
 using System.Collections.Generic;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenuThrower : MonoBehaviour
 {
     public static bool gameIsPaused = false;
 
@@ -75,7 +75,7 @@ public class PauseMenu : MonoBehaviour
         gameIsPaused = false;
 
         // Karakter hareketlerini aktif et
-        Object.FindFirstObjectByType<RunnerController>().EnableControls(true);  // Hareketi aktif et
+        Object.FindFirstObjectByType<RedThrowerController>().EnableControls(true);  // Hareketi aktif et
         Debug.Log("hareket aktif");
 
         // Diðer UI öðelerini tekrar göster

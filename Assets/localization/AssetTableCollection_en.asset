@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97269afb30aa84742ae3f3342603618a, type: 3}
+  m_Name: AssetTableCollection_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: d30960637e6e17944a6823cc0a83b21c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 64437288960
+    m_Localized: 5f59133a1aa8fdd4bb8de83d8b63cafb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 810457169920
+    m_Localized: d45538493d03b984a891d2ce2d053f0c
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47790096384
+    m_Localized: 0f7c6b3c0dd31184a8f61efb343153d6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11446452224
+    m_Localized: 64aa937ddb2478f4c8921985218bf730
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66907734016
+    m_Localized: 7bd2b2c4cb43da648b1f2fc4b884ec7f
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68547706880
+    m_Localized: 99154f83bd209bc479f2a763939718be
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71848624128
+    m_Localized: 59dfbe70a28bc2047bb91d18a7ef18a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73719283712
+    m_Localized: 32837d119f03bc944b4de1f7bf61bed1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75275370496
+    m_Localized: dd6296cac3b5acf43a93fd986a221ac3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 201410674688
+    m_Localized: 67bc4734a46dc8e4b878b512f2b7134c
+    m_Metadata:
+      m_Items: []
+  - m_Id: 203059036160
+    m_Localized: 11c766cd22df25843b9c49206caa4582
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204732563456
+    m_Localized: 6238afb79d73e1d4aae57d109af999ba
+    m_Metadata:
+      m_Items: []
+  - m_Id: 251792654336
+    m_Localized: a720613e523790747b9d0031bfb31d3c
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745927802880
+    m_Localized: de1a6363c047a594a97f329ffdeb74ee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 749149028352
+    m_Localized: 6f6568bd4c7f5e9419f98a4aaa1d4938
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750893858816
+    m_Localized: b0332e8e185645e4f9ac1de08d4e2066
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2640230678528
+    m_Localized: 'c9ff0c467a469fc4882ecfd4ea6dc6e3[Dodge Ball_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3038878302208
+    m_Localized: 'c4229520845ad2c4c93d3e94c729adfe[play_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3025448140800
+    m_Localized: 'e6d0297cb55582d458f9a15568e30e55[settings button_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3003306409984
+    m_Localized: '1a8d8b4828ab2c248b74c7db6a31be36[exit_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238491189248
+    m_Localized: '9190774dbfa65254fa55e024fef6dc83[runner_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4336499490816
+    m_Localized: 'ae7df0acf06576c4a84b2d267dac2c54[thrower_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30976772341760
+    m_Localized: 'fe04ee90bc472a5468690129ae635ab4[settings_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57010829852672
+    m_Localized: 'ea90ff6aee76bdc46a578eb9fec1fe2c[defeat screen_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57503211782144
+    m_Localized: '166afa42edc6b544e899881122f57a7b[victory screen_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57673026568192
+    m_Localized: 'bce325d8bdf750c41a88f8ebe618ee86[round 1 scene_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57748867973120
+    m_Localized: 'b1ef0bc2439024a4ca3bb476821a4812[round 2 scene_0]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57794590081024
+    m_Localized: 'b73b8785112869a4eb78429250314eca[round 3 scene_0]'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

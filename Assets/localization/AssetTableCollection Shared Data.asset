@@ -1,0 +1,285 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: AssetTableCollection Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: AssetTableCollection
+  m_TableCollectionNameGuidString: d30960637e6e17944a6823cc0a83b21c
+  m_Entries:
+  - m_Id: 11446452224
+    m_Key: Oyna
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47790096384
+    m_Key: ayarlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64437288960
+    m_Key: "\xE7\u0131k"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66907734016
+    m_Key: muzik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68547706880
+    m_Key: tam ekran
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71848624128
+    m_Key: dil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73719283712
+    m_Key: yakan top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75275370496
+    m_Key: sahne 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 201410674688
+    m_Key: sahne 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 203059036160
+    m_Key: sahne 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204732563456
+    m_Key: "kazanma ekran\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 251792654336
+    m_Key: "kaybetme ekran\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745927802880
+    m_Key: devam et
+    m_Metadata:
+      m_Items: []
+  - m_Id: 749149028352
+    m_Key: atan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750893858816
+    m_Key: kacan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 810457169920
+    m_Key: ayarlar buton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1728204439552
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2371023470592
+    m_Key: New Entry 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2640230678528
+    m_Key: baslik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3003306409984
+    m_Key: cik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3025448140800
+    m_Key: settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3038878302208
+    m_Key: oyna
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4103593984000
+    m_Key: "\xC7\u0131k2"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238491189248
+    m_Key: Kacan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4336499490816
+    m_Key: ata
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30976772341760
+    m_Key: ayarlar baslik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31212966182912
+    m_Key: ayarlar basli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57010829852672
+    m_Key: Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57503211782144
+    m_Key: win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57673026568192
+    m_Key: sahne1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57748867973120
+    m_Key: sahne2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57794590081024
+    m_Key: sahne3
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items:
+    - rid: 6733619751043989769
+    - rid: 6733619751043989778
+  m_KeyGenerator:
+    rid: 6733619751043989768
+  references:
+    version: 2
+    RefIds:
+    - rid: 6733619751043989768
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1748015857757
+    - rid: 6733619751043989769
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 64437288960
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 810457169920
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 47790096384
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 11446452224
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 66907734016
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 68547706880
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 71848624128
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 73719283712
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 75275370496
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 201410674688
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 203059036160
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 204732563456
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 251792654336
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 745927802880
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 749149028352
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 750893858816
+          m_TableCodes:
+          - en
+          - tr
+        m_TypeString: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - rid: 6733619751043989778
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 2371023470592
+          m_TableCodes:
+          - tr
+        - m_KeyId: 2640230678528
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 3038878302208
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 3025448140800
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 3003306409984
+          m_TableCodes:
+          - tr
+          - en
+        - m_KeyId: 4238491189248
+          m_TableCodes:
+          - tr
+          - en
+        - m_KeyId: 4336499490816
+          m_TableCodes:
+          - tr
+          - en
+        - m_KeyId: 30976772341760
+          m_TableCodes:
+          - tr
+          - en
+        - m_KeyId: 57010829852672
+          m_TableCodes:
+          - tr
+          - en
+        - m_KeyId: 57503211782144
+          m_TableCodes:
+          - tr
+          - en
+        - m_KeyId: 57673026568192
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 57748867973120
+          m_TableCodes:
+          - en
+          - tr
+        - m_KeyId: 57794590081024
+          m_TableCodes:
+          - en
+          - tr
+        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null

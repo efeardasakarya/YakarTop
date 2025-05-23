@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-English
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-English
+  m_GUID: 3b80bbaaa2d0ad64dad234b400cb0e3f
+  m_SerializeEntries:
+  - m_GUID: 59dfbe70a28bc2047bb91d18a7ef18a2
+    m_Address: Language
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bd2b2c4cb43da648b1f2fc4b884ec7f
+    m_Address: "m\xFCzik"
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99154f83bd209bc479f2a763939718be
+    m_Address: "m\xFCzik-1"
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de1a6363c047a594a97f329ffdeb74ee
+    m_Address: Devam et
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 6b221cf2b2c1a504e9cd7b36c03c2a80, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 70fc08022779fac4688e4fe93de3d807, type: 2}
+    - {fileID: 11400000, guid: db39aa690f6f8a846a40127850ac0ef0, type: 2}

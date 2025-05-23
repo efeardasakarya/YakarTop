@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Turkish
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-Turkish
+  m_GUID: 34d82d6b94db5af4a9131de0feffeec2
+  m_SerializeEntries:
+  - m_GUID: 158c5f7d018cedd47b2a773b791b9911
+    m_Address: Language
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62a47220ca1ca984198a55c0a34b5ccf
+    m_Address: music
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cde84618637f0da43aacd96f1e6db50d
+    m_Address: fullscreen
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e0500b49f8999b34d86259b6ef715287
+    m_Address: continue
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 6b221cf2b2c1a504e9cd7b36c03c2a80, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d8ebe045cfed11b40b4346874d2f636a, type: 2}
+    - {fileID: 11400000, guid: 08c62b80ea572194d9ba3fd384b791b4, type: 2}
