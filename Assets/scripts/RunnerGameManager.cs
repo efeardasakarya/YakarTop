@@ -109,8 +109,14 @@ public class RunnerGameManager : MonoBehaviour
     {
 
         roundFinished = false;
-        RunnerCharacter.transform.position = new Vector3(100f, 175.131f, 142.89f);
+
+        //Yeniden Spawn olma
+        Rigidbody rb = RunnerCharacter.GetComponent<Rigidbody>();
+        rb.isKinematic = true; // Fiziksel tepkileri geçici olarak kapat
+        RunnerCharacter.transform.position = new Vector3(101.203f, 175.326f, 142.89f);
         RunnerCharacter.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+        rb.isKinematic = false; // Fizik motorunu tekrar etkinleþtir
+
 
         Time.timeScale = 1f; // Oyunu baþlat
         countdownTime = 40f;
