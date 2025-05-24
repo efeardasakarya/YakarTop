@@ -7,6 +7,7 @@ public class DodgeballEnemy : MonoBehaviour
     public Transform player;
     public GameObject ballPrefab;
     public Transform handTransform;
+    public Animator animator; // Animator component (RunnerEnemiesAnimation)
 
     [Header("Movement")]
     public float moveRange = 3f;
@@ -32,6 +33,8 @@ public class DodgeballEnemy : MonoBehaviour
             if (pObj != null) player = pObj.transform;
             else Debug.LogWarning($"{name}: Player bulunamadı! Tag’ini kontrol et.");
         }
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -39,6 +42,7 @@ public class DodgeballEnemy : MonoBehaviour
         if (player == null) Debug.LogError($"{name}: Player Transform atanmamış!");
         if (ballPrefab == null) Debug.LogError($"{name}: Ball Prefab atanmamış!");
         if (handTransform == null) Debug.LogError($"{name}: Hand Transform atanmamış!");
+        if (animator == null) Debug.LogError($"{name}: Animator atanmamış!");
     }
 
     void Update()
@@ -60,7 +64,12 @@ public class DodgeballEnemy : MonoBehaviour
     {
         Vector3 offset = Vector3.forward * (movingRight ? 1 : -1) * moveSpeed * Time.deltaTime;
         transform.Translate(offset, Space.World);
-        if (Vector3.Distance(transform.position, startPos) > moveRange) movingRight = !movingRight;
+        // Animator parametre güncellemesi
+        if (animator != null)
+            animator.SetBool("Right", movingRight);
+
+        if (Vector3.Distance(transform.position, startPos) > moveRange)
+            movingRight = !movingRight;
     }
 
     public void BeginThrow()
@@ -72,30 +81,34 @@ public class DodgeballEnemy : MonoBehaviour
     {
         canMove = false;
 
-        // 1) Spawn gecikmesi
+        // Spawn gecikmesi
         float spawnDelay = Random.Range(spawnDelayMin, spawnDelayMax);
         yield return new WaitForSeconds(spawnDelay);
 
         if (ballPrefab == null || handTransform == null)
             yield break;
 
-        // 2) Topu el pozisyonunda üret ve parent yap
+        // Spawn ve parent
         GameObject ball = Instantiate(ballPrefab, handTransform.position, handTransform.rotation);
         Rigidbody rb = ball.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.isKinematic = true;       // Fizik etkilerini kapat
+            rb.isKinematic = true;
             rb.useGravity = false;
         }
         ball.transform.SetParent(handTransform);
         ball.transform.localPosition = Vector3.zero;
         ball.transform.localRotation = Quaternion.identity;
 
-        // 3) Hold süresi
+        // Throw animasyonunu başlat
+        if (animator != null)
+            animator.SetBool("Throw", true);
+
+        // Hold süresi
         float holdTime = Random.Range(minHoldTime, maxHoldTime);
         yield return new WaitForSeconds(holdTime);
 
-        // 4) Parent'tan çıkar ve fiziksel hale getir
+        // Fırlat
         ball.transform.SetParent(null);
         if (rb != null)
         {
@@ -106,7 +119,11 @@ public class DodgeballEnemy : MonoBehaviour
             rb.linearVelocity = dir * throwForce;
         }
 
-        // 5) Tekrar hareket izni
+        // Throw animasyonunu sonlandır
+        if (animator != null)
+            animator.SetBool("Throw", false);
+
+        // Tekrar hareket izni
         yield return new WaitForSeconds(Random.Range(minHoldTime, maxHoldTime));
         canMove = true;
     }

@@ -193,7 +193,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 29a02faaaef483341b39a675c6c34c30, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: f7d099e0ac1bfaa44a438002f71d959f, type: 2}
+      objectReference: {fileID: 9100000, guid: ada7a52f7f7a98e47b957a092d31e4bd, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -214,6 +214,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5437204679641703243}
   m_SourcePrefab: {fileID: 100100000, guid: 29a02faaaef483341b39a675c6c34c30, type: 3}
+--- !u!95 &736708336547896922 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 29a02faaaef483341b39a675c6c34c30, type: 3}
+  m_PrefabInstance: {fileID: 6580821174505251787}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6310295333696708250 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 29a02faaaef483341b39a675c6c34c30, type: 3}
@@ -282,11 +287,12 @@ MonoBehaviour:
   player: {fileID: 0}
   ballPrefab: {fileID: 6172825678493332353, guid: a2319163227948d4ab8d2466bcd7358b, type: 3}
   handTransform: {fileID: 4456960248744634968}
+  animator: {fileID: 736708336547896922}
   moveRange: 3
   moveSpeed: 2
   throwForce: 25
-  minHoldTime: 1
-  maxHoldTime: 3
+  spawnDelayMin: 0.2
+  spawnDelayMax: 1
 --- !u!4 &6690515613493511200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 29a02faaaef483341b39a675c6c34c30, type: 3}
