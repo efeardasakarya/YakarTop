@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Localization-Asset-Tables-Turkish
   m_GUID: 090fe6d0ee05fc340ba1aa41e7a158bf
-  m_SerializeEntries:
-  - m_GUID: 2be51f98dabeafb43bf889006661baba
-    m_Address: AssetTableCollection_tr
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-tr
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 6b221cf2b2c1a504e9cd7b36c03c2a80, type: 2}
   m_SchemaSet:
