@@ -38,7 +38,6 @@ public class RunnerController : MonoBehaviour
     public int maxDashCount = 5;
     private int currentDashCount;
     public Image[] DashIcon;
-    
 
     void Start()
     {
@@ -52,8 +51,7 @@ public class RunnerController : MonoBehaviour
 
     void Update()
     {
-        if (PauseMenu.gameIsPaused) return;
-        if (!isAlive) return;
+        if (PauseMenu.gameIsPaused || !isAlive) return;
 
         Move();
         UpdateAccuracySlider();
@@ -98,7 +96,8 @@ public class RunnerController : MonoBehaviour
     {
         if (isTurning)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+            float delta = isSlow ? Time.unscaledDeltaTime : Time.deltaTime;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * delta);
             cameraTransform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
 
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
@@ -111,14 +110,16 @@ public class RunnerController : MonoBehaviour
 
     void Move()
     {
+        float delta = isSlow ? Time.unscaledDeltaTime : Time.deltaTime;
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-        Vector3 move = (transform.right * moveX + transform.forward * moveZ) * moveSpeed * Time.deltaTime;
+        Vector3 move = (transform.right * moveX + transform.forward * moveZ) * moveSpeed * delta;
         transform.position += move;
     }
 
     void RotateCamera()
     {
+        float delta = isSlow ? Time.unscaledDeltaTime : Time.deltaTime;
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
@@ -135,8 +136,13 @@ public class RunnerController : MonoBehaviour
     {
         isSlow = true;
         Time.timeScale = 0.3f;
+        // Adjust fixedDeltaTime to maintain physics consistency
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
         yield return new WaitForSecondsRealtime(3f);
+
         Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
         isSlow = false;
     }
 
@@ -196,12 +202,8 @@ public class RunnerController : MonoBehaviour
             }
 
             Destroy(other.gameObject);
-
-            // Sahnedeki spawner’a bilgi verip yeni boost çýkmasýný saðla
             FindObjectOfType<LinkSpawner>()?.ClearBoost();
         }
-
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -236,7 +238,7 @@ public class RunnerController : MonoBehaviour
     private IEnumerator ShowSpeedBoostMessage()
     {
         CilekliLink.SetActive(true);
-        yield return new WaitForSeconds(2f); // UI 2 saniye gözüksün
+        yield return new WaitForSeconds(2f);
         CilekliLink.SetActive(false);
     }
 
@@ -246,8 +248,9 @@ public class RunnerController : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < dashDuration)
         {
-            transform.position += direction * dashForce * Time.deltaTime;
-            elapsed += Time.deltaTime;
+            float delta = Time.unscaledDeltaTime;
+            transform.position += direction * dashForce * delta;
+            elapsed += delta;
             yield return null;
         }
         isDashing = false;
@@ -261,15 +264,12 @@ public class RunnerController : MonoBehaviour
         }
     }
 
-
     public void ResetDash()
     {
         currentDashCount = maxDashCount;
-
         for (int i = 0; i < DashIcon.Length; i++)
         {
             DashIcon[i].gameObject.SetActive(i < maxDashCount);
         }
     }
-
 }
