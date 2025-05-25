@@ -59,10 +59,11 @@ public class RunnerController : MonoBehaviour
     void Update()
     {
         if (PauseMenu.gameIsPaused || !isAlive) return;
-
+        
         Move();
         UpdateAccuracySlider();
         HandleTurn();
+        Debug.Log(lives);
 
         if (!isTurning)
             RotateCamera();
@@ -222,6 +223,7 @@ public class RunnerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        rb.isKinematic = true;
         if (collision.gameObject.CompareTag("Ball"))
         {
             lives -= 1;
@@ -233,13 +235,19 @@ public class RunnerController : MonoBehaviour
                 isAlive = false;
                 Debug.Log("Oyuncu vuruldu, oyun bitti!");
             }
-            if(lives >0)
+            else if(lives>0)
             {
-                lives--;
-                 
+                
+                
+             
             }
+            Destroy(collision.gameObject);
+            rb.isKinematic = false;
+            Debug.Log("topu yok ettim");
 
-            
+
+
+
         }
 
         if (collision.gameObject.CompareTag("Limit"))

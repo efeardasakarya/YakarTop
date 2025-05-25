@@ -50,7 +50,7 @@ public class DodgeballEnemy : MonoBehaviour
         if (player != null) LookAtPlayer();
         if (canMove) MoveSideToSide();
 
-        Debug.Log(movingRight);
+        
     }
 
     void LookAtPlayer()
