@@ -34,7 +34,7 @@ public class RunnerGameManager : MonoBehaviour
 
     public TextMeshProUGUI countdownText;
 
-    private float countdownTime = 40f; // Tur baþýna 40 saniye geri sayým
+    private float countdownTime = 2f; // Tur baþýna 40 saniye geri sayým
     private bool isCountingDown = false; // Geri sayým aktif mi?
 
     private RunnerController runnerController;
@@ -120,7 +120,7 @@ public class RunnerGameManager : MonoBehaviour
 
 
         Time.timeScale = 1f; // Oyunu baþlat
-        countdownTime = 40f;
+        countdownTime = 2f;
         isCountingDown = true;
         countdownText.gameObject.SetActive(true);   // Geri sayým UI'ýný etkinleþtirir
         RunnerCharacter.GetComponent<RunnerController>().enabled = true;
@@ -253,7 +253,7 @@ public class RunnerGameManager : MonoBehaviour
         }
         */
 
-        countdownTime = 40f;
+        countdownTime = 2f;
         Start();
     }
 

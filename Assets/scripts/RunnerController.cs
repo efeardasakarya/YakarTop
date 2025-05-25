@@ -15,6 +15,9 @@ public class RunnerController : MonoBehaviour
     private int sliderDirection = 1;
 
     private bool isSlow = false;
+    public Image slowTimeIcon;
+
+
 
     private float rotationX = 0f;
     private float rotationY = 0f;
@@ -40,6 +43,8 @@ public class RunnerController : MonoBehaviour
     public Image[] DashIcon;
 
     [HideInInspector]public int  lives=1;
+    public Image can;
+
 
     void Start()
     {
@@ -65,7 +70,7 @@ public class RunnerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             CatchBall();
 
-        if (!isSlow && Input.GetKeyDown(KeyCode.Alpha1))
+        if (!isSlow && Input.GetKeyDown(KeyCode.E))
         {
             if (CanSlowTime)
             {
@@ -137,6 +142,7 @@ public class RunnerController : MonoBehaviour
     private IEnumerator SlowTime()
     {
         isSlow = true;
+        slowTimeIcon.gameObject.SetActive(true);
         Time.timeScale = 0.3f;
         // Adjust fixedDeltaTime to maintain physics consistency
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
@@ -146,6 +152,7 @@ public class RunnerController : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
         isSlow = false;
+        slowTimeIcon.gameObject.SetActive(false);
     }
 
     private void CatchBall()
@@ -161,6 +168,9 @@ public class RunnerController : MonoBehaviour
                     Destroy(col.gameObject);
                     Debug.Log("Fazladan bir can aldýn!");
                     lives++;
+
+                    if (can != null)
+                        can.gameObject.SetActive(true);
                 }
                 break;
             }
@@ -215,8 +225,10 @@ public class RunnerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         {
             lives -= 1;
+            if (can != null)
+                can.gameObject.SetActive(false);
 
-            if(lives==0)
+            if (lives==0)
             {
                 isAlive = false;
                 Debug.Log("Oyuncu vuruldu, oyun bitti!");

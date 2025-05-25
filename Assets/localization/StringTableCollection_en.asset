@@ -64,6 +64,53 @@ MonoBehaviour:
       Your speed increased!'
     m_Metadata:
       m_Items: []
+  - m_Id: 752488588443648
+    m_Localized: Extra Health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758922050994176
+    m_Localized: How To Play?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762517110587392
+    m_Localized: How to Play Thrower Mode?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762695519502336
+    m_Localized: How to Play Runner Mode?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762824569847808
+    m_Localized: '-Left mouse button throws the ball.
+
+      -You have 6 throws and
+      40 seconds per round.
+
+      -The accuracy bar on the right shows how precise
+      your throw will be. The green area indicates the most accurate zone.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763198043258880
+    m_Localized: 'Q - 180 Degree Turn
+
+      E - Slow Motion
+
+      Shift - Dash
+
+      Left
+      Mouse Button - Catch the Ball
+
+      -You have 5 dash uses and 40 seconds per
+      round.
+
+      -A "Cilekli Link" power-up appears randomly on the map. If you
+      manage to collect it, you''ll gain increased speed for a short time.
+
+      -If
+      you press the left mouse button while the accuracy bar on the right is in the
+      green zone, you''ll catch the ball and earn an extra life.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

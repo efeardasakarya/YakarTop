@@ -64,6 +64,53 @@ MonoBehaviour:
       Hizin Artti!'
     m_Metadata:
       m_Items: []
+  - m_Id: 752488588443648
+    m_Localized: Ekstra Can
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758922050994176
+    m_Localized: Nasil Oynanir?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762517110587392
+    m_Localized: Atan Modu Nasil Oynanir?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762695519502336
+    m_Localized: Kacan Modu Nasil Oynanir?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762824569847808
+    m_Localized: '-Sol Mouse Butonu topu atar.
+
+      -Her tur 6 adet top atma hakkiniz
+      ve 40 saniye sureniz bulunmaktadir.
+
+      -Sag taraftaki denge cubugu, atisinizin
+      ne kadar isabetli gidecegini gosterir. Yesil renk en isabetli atis kismidir.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763198043258880
+    m_Localized: 'Q - 180 derece donus
+
+      E - Zaman Yavaslatma
+
+      Shift -
+      Dash
+
+      Sol Mouse Butonu - Top Yakalama
+
+      -Her tur 5 adet dash hakkiniz
+      ve 40 saniye sureniz bulunmaktadir.
+
+      -Rastgele zamanlarda "Cilekli Link"
+      guclendirmesi haritaya gelmektedir. Alabilirseniz belirli sure hiz artisi kazanirsiniz.
+
+      -Sag
+      taraftaki denge cubugu yesil rengin uzerindeyken sol mouse butonuna basarsaniz
+      topu yakalayarak ekstra can kazanabilirsiniz.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using TMPro; // TextMesh Pro için gerekli namespace
+using TMPro;
 using System.Collections.Generic;
 
 public class PauseMenuThrower : MonoBehaviour
@@ -11,16 +11,18 @@ public class PauseMenuThrower : MonoBehaviour
     [Header("UI Elements")]
     public GameObject pauseMenuPanel;
     public GameObject optionsMenu;
-    public GameObject panel; // Arka plan karartma paneli
+    public GameObject panel; 
     public AudioSource theme;
+    public GameObject howToPlayMenu; 
 
-    // Gizlemek istediðiniz öðeler
-    public GameObject timerObject; // TextMesh Pro bileþenini içeren Timer
-    public GameObject imageParentObject; // Image bileþenlerini içeren parent GameObject
+
+ 
+    public GameObject timerObject; 
+    public GameObject imageParentObject;
     public GameObject SliderObject;
     public GameObject CrosshairObject;
 
-    // Tüm oyun UI öðelerini saklamak için liste
+
     public List<GameObject> gameUIElements = new List<GameObject>();
 
     private EventSystem eventSystem;
@@ -30,12 +32,12 @@ public class PauseMenuThrower : MonoBehaviour
         Time.timeScale = 1.0f;
         gameIsPaused = false;
 
-        // Baþlangýçta menüleri kapat
+
         pauseMenuPanel.SetActive(false);
         optionsMenu.SetActive(false);
         panel.SetActive(false);
 
-        // EventSystem'i al
+
         eventSystem = EventSystem.current;
 
 
@@ -49,6 +51,10 @@ public class PauseMenuThrower : MonoBehaviour
             if (optionsMenu.activeSelf)
             {
                 CloseOptions();
+            }
+            else if (howToPlayMenu.activeSelf)
+            {
+                CloseHowToPlay();
             }
             else
             {
@@ -74,15 +80,15 @@ public class PauseMenuThrower : MonoBehaviour
         Time.timeScale = 1.0f;
         gameIsPaused = false;
 
-        // Karakter hareketlerini aktif et
-        Object.FindFirstObjectByType<RedThrowerController>().EnableControls(true);  // Hareketi aktif et
+
+        Object.FindFirstObjectByType<RedThrowerController>().EnableControls(true); 
         Debug.Log("hareket aktif");
 
-        // Diðer UI öðelerini tekrar göster
+
         ToggleUIElements(true);
         Debug.Log("Ui gösterildi");
 
-        // Gizlenen öðeleri geri getirme
+
         timerObject.SetActive(true);
         imageParentObject.SetActive(true);
         Debug.Log("Image parent aktif edildi");
@@ -101,18 +107,9 @@ public class PauseMenuThrower : MonoBehaviour
         Time.timeScale = 0f;
         gameIsPaused = true;
 
-        // Karakter hareketlerini durdur
-
-        // !!!!!!!!!!!!!!!!!!!!
-        // Þuanda sadece RedThrower için çalýþýyor. Kaçan bölümlerinde kaçan için çalýþmalý. Kaçanýn Controllerýnda ayný isme sahip
-        // baþka bir fonksiyon var
-
-        //Object.FindFirstObjectByType<RedThrowerController>().EnableControls(false);  // Hareketi durdur
-
-        // Diðer UI öðelerini gizle
         ToggleUIElements(false);
 
-        // Gizlemek istediðiniz öðeleri gizle
+
         timerObject.SetActive(false);
         imageParentObject.SetActive(false);
         SliderObject.SetActive(false);
@@ -122,7 +119,7 @@ public class PauseMenuThrower : MonoBehaviour
         Cursor.visible = true;
     }
 
-    // Diðer UI öðelerini gizlemek ve göstermek için yardýmcý fonksiyon
+
     private void ToggleUIElements(bool show)
     {
         foreach (GameObject uiElement in gameUIElements)
@@ -133,7 +130,7 @@ public class PauseMenuThrower : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        Time.timeScale = 1.0f; // Yeni sahne yüklenmeden önce zamaný düzelt
+        Time.timeScale = 1.0f; 
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -158,4 +155,10 @@ public class PauseMenuThrower : MonoBehaviour
     {
         theme.mute = !isMusic;
     }
+    public void CloseHowToPlay()
+    {
+        howToPlayMenu.SetActive(false);
+        pauseMenuPanel.SetActive(true); 
+    }
+
 }
