@@ -116,6 +116,7 @@ public class RunnerGameManager : MonoBehaviour
         RunnerCharacter.transform.position = new Vector3(101.203f, 175.326f, 142.89f);
         RunnerCharacter.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         rb.isKinematic = false; // Fizik motorunu tekrar etkinleþtir
+        runnerController.lives = 1;
 
 
         Time.timeScale = 1f; // Oyunu baþlat

@@ -39,6 +39,8 @@ public class RunnerController : MonoBehaviour
     private int currentDashCount;
     public Image[] DashIcon;
 
+    [HideInInspector]public int  lives=1;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -157,6 +159,8 @@ public class RunnerController : MonoBehaviour
                 if (Random.value < chance)
                 {
                     Destroy(col.gameObject);
+                    Debug.Log("Fazladan bir can aldýn!");
+                    lives++;
                 }
                 break;
             }
@@ -210,8 +214,20 @@ public class RunnerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            isAlive = false;
-            Debug.Log("Oyuncu vuruldu, oyun bitti!");
+            lives -= 1;
+
+            if(lives==0)
+            {
+                isAlive = false;
+                Debug.Log("Oyuncu vuruldu, oyun bitti!");
+            }
+            if(lives >0)
+            {
+                lives--;
+                 
+            }
+
+            
         }
 
         if (collision.gameObject.CompareTag("Limit"))

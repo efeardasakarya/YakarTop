@@ -21,7 +21,7 @@ public class BallController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(sceneName);
+        
     }
 
     private void OnCollisionEnter(Collision collision)

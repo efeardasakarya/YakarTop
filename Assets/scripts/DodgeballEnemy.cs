@@ -49,6 +49,8 @@ public class DodgeballEnemy : MonoBehaviour
     {
         if (player != null) LookAtPlayer();
         if (canMove) MoveSideToSide();
+
+        Debug.Log(movingRight);
     }
 
     void LookAtPlayer()
@@ -106,7 +108,7 @@ public class DodgeballEnemy : MonoBehaviour
 
         // Hold süresi
         float holdTime = Random.Range(minHoldTime, maxHoldTime);
-        yield return new WaitForSeconds(holdTime);
+        yield return new WaitForSeconds(1f);
 
         // Fırlat
         ball.transform.SetParent(null);
@@ -118,7 +120,7 @@ public class DodgeballEnemy : MonoBehaviour
             Vector3 dir = (targetPos - handTransform.position).normalized;
             rb.linearVelocity = dir * throwForce;
         }
-
+        yield return new WaitForSeconds(1.5f);
         // Throw animasyonunu sonlandır
         if (animator != null)
             animator.SetBool("Throw", false);
