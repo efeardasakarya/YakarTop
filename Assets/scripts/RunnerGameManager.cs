@@ -118,6 +118,7 @@ public class RunnerGameManager : MonoBehaviour
         rb.isKinematic = false; // Fizik motorunu tekrar etkinleþtir
         runnerController.lives = 1;
 
+        DestroyBallsPerRound();
 
         Time.timeScale = 1f; // Oyunu baþlat
         countdownTime = 2f;
@@ -175,6 +176,20 @@ public class RunnerGameManager : MonoBehaviour
         runnerController.ResetDash();
 
     }
+
+    private void DestroyBallsPerRound()
+    {
+        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+
+        // Her bir düþmaný (0,0,0)'a taþý ve yok et
+        foreach (GameObject ball in balls)
+        {
+            ball.transform.position = Vector3.zero;
+            Destroy(ball);
+        }
+    }
+
+
 
 
     private void DrogbaSpawn()
