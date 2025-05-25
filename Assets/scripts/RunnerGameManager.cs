@@ -121,7 +121,7 @@ public class RunnerGameManager : MonoBehaviour
         DestroyBallsPerRound();
 
         Time.timeScale = 1f; // Oyunu baþlat
-        countdownTime = 2f;
+        countdownTime =40f;
         isCountingDown = true;
         countdownText.gameObject.SetActive(true);   // Geri sayým UI'ýný etkinleþtirir
         RunnerCharacter.GetComponent<RunnerController>().enabled = true;
