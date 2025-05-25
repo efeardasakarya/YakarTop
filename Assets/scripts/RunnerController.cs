@@ -223,9 +223,10 @@ public class RunnerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        rb.isKinematic = true;
+        
         if (collision.gameObject.CompareTag("Ball"))
         {
+            rb.isKinematic = true;
             lives -= 1;
             if (can != null)
                 can.gameObject.SetActive(false);
