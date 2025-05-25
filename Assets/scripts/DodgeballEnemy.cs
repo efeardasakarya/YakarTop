@@ -104,7 +104,7 @@ public class DodgeballEnemy : MonoBehaviour
         {
             rb.isKinematic = false;
             rb.useGravity = true;
-            Vector3 targetPos = player.position + Vector3.up * 1.2f;
+            Vector3 targetPos = player.position + Vector3.up * 0.4f;
             Vector3 dir = (targetPos - handTransform.position).normalized;
             rb.linearVelocity = dir * throwForce;
         }
