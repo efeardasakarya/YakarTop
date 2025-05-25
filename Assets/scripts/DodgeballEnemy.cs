@@ -1,3 +1,4 @@
+
 using System.Collections;
 using UnityEngine;
 
@@ -5,9 +6,8 @@ public class DodgeballEnemy : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
-    public GameObject ballPrefab;
     public Transform handTransform;
-    public Animator animator; // Animator component (RunnerEnemiesAnimation)
+    public Animator animator; // RunnerEnemiesAnimation
 
     [Header("Movement")]
     public float moveRange = 3f;
@@ -40,7 +40,6 @@ public class DodgeballEnemy : MonoBehaviour
     void Start()
     {
         if (player == null) Debug.LogError($"{name}: Player Transform atanmamış!");
-        if (ballPrefab == null) Debug.LogError($"{name}: Ball Prefab atanmamış!");
         if (handTransform == null) Debug.LogError($"{name}: Hand Transform atanmamış!");
         if (animator == null) Debug.LogError($"{name}: Animator atanmamış!");
     }
@@ -49,8 +48,6 @@ public class DodgeballEnemy : MonoBehaviour
     {
         if (player != null) LookAtPlayer();
         if (canMove) MoveSideToSide();
-
-        
     }
 
     void LookAtPlayer()
@@ -66,7 +63,6 @@ public class DodgeballEnemy : MonoBehaviour
     {
         Vector3 offset = Vector3.forward * (movingRight ? 1 : -1) * moveSpeed * Time.deltaTime;
         transform.Translate(offset, Space.World);
-        // Animator parametre güncellemesi
         if (animator != null)
             animator.SetBool("Right", movingRight);
 
@@ -83,34 +79,26 @@ public class DodgeballEnemy : MonoBehaviour
     {
         canMove = false;
 
-        // Spawn gecikmesi
-        float spawnDelay = Random.Range(spawnDelayMin, spawnDelayMax);
-        yield return new WaitForSeconds(spawnDelay);
+        yield return new WaitForSeconds(Random.Range(spawnDelayMin, spawnDelayMax));
 
-        if (ballPrefab == null || handTransform == null)
+        if (handTransform == null)
             yield break;
 
-        // Spawn ve parent
-        GameObject ball = Instantiate(ballPrefab, handTransform.position, handTransform.rotation);
+        // Use object pool instead of Instantiate
+        GameObject ball = BallPool.Instance.Spawn(handTransform.position, handTransform.rotation);
         Rigidbody rb = ball.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-        }
+
+        // Parent to hand
         ball.transform.SetParent(handTransform);
         ball.transform.localPosition = Vector3.zero;
         ball.transform.localRotation = Quaternion.identity;
 
-        // Throw animasyonunu başlat
         if (animator != null)
             animator.SetBool("Throw", true);
 
-        // Hold süresi
-        float holdTime = Random.Range(minHoldTime, maxHoldTime);
         yield return new WaitForSeconds(0.5f);
 
-        // Fırlat
+        // Throw
         ball.transform.SetParent(null);
         if (rb != null)
         {
@@ -120,12 +108,11 @@ public class DodgeballEnemy : MonoBehaviour
             Vector3 dir = (targetPos - handTransform.position).normalized;
             rb.linearVelocity = dir * throwForce;
         }
+
         yield return new WaitForSeconds(1.0f);
-        // Throw animasyonunu sonlandır
         if (animator != null)
             animator.SetBool("Throw", false);
 
-        // Tekrar hareket izni
         yield return new WaitForSeconds(Random.Range(minHoldTime, maxHoldTime));
         canMove = true;
     }
